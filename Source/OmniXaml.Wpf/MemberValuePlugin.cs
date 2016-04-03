@@ -1,6 +1,7 @@
 namespace OmniXaml.Wpf
 {
     using System;
+    using System.Linq;
     using System.Reflection;
     using System.Windows;
     using System.Windows.Data;
@@ -28,6 +29,14 @@ namespace OmniXaml.Wpf
                 CommonValueConversion.TryConvert(value, xamlType, valueContext, out compatibleValue);
 
                 base.SetValue(instance, compatibleValue, valueContext);
+            }
+            else if (member.IsEvent)
+            {
+                var topLevelInstance = valueContext.TopDownValueContext.StoredInstances.First().Instance;
+                var callback = topLevelInstance.GetType().GetTypeInfo().DeclaredMethods
+                    .FirstOrDefault(method => method.Name == (string)value);
+                member.Setter.Invoke(instance,
+                    new[] { callback.CreateDelegate(member.Setter.GetParameters()[0].ParameterType, topLevelInstance) });
             }
             else
             {
