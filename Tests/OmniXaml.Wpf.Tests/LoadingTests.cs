@@ -1,8 +1,6 @@
 ﻿namespace OmniXaml.Wpf.Tests
 {
     using System.Windows;
-    using System.Windows.Automation.Peers;
-    using System.Windows.Automation.Provider;
     using System.Windows.Controls;
     using System.Windows.Media;
     using Xunit;
