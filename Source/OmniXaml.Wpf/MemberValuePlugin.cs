@@ -32,11 +32,7 @@ namespace OmniXaml.Wpf
             }
             else if (member.IsEvent)
             {
-                var topLevelInstance = valueContext.TopDownValueContext.StoredInstances.First().Instance;
-                var callback = topLevelInstance.GetType().GetTypeInfo().DeclaredMethods
-                    .FirstOrDefault(method => method.Name == (string)value);
-                member.Setter.Invoke(instance,
-                    new[] { callback.CreateDelegate(member.Setter.GetParameters()[0].ParameterType, topLevelInstance) });
+                base.AttachEventHandler(instance, (string)value, valueContext);
             }
             else
             {
