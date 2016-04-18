@@ -78,14 +78,14 @@
     <Compile Include="MetadataProvider.cs" />
     <Compile Include="NameScopeTests.cs" />
     <Compile Include="Resources\MarkupExtensionNodeResources.cs" />
-    <Compile Include="Parsers\ProtoInstructionParserTests\ParsingTests.cs" />
+    <Compile Include="Parsers\ProtoInstructionParserTests\XamlToProtoInstructionsTests.cs" />
     <Compile Include="Parsers\ProtoInstructionParserTests\PrefixTests.cs" />
     <Compile Include="Parsers\InstructionParserTests\MemberNodesBlock.cs" />
     <Compile Include="SetupSequence.cs" />
     <Compile Include="StackWithLinkedNodesTests.cs" />
     <Compile Include="Parsers\MarkupExtensionParserTests\ParsingTests.cs" />
     <Compile Include="Parsers\MarkupExtensionParserTests\MarkupExtensionNodeToXamlNodesConverterTests.cs" />
-    <Compile Include="Parsers\InstructionParserTests\ParsingTests.cs" />
+    <Compile Include="Parsers\InstructionParserTests\ProtoToInstructionsTests.cs" />
     <Compile Include="Resources\ProtoInstructionResources.cs" />
     <Compile Include="Parsers\InstructionParserTests\MarkupExtensionsParsingFromProtoToXaml.cs" />
     <Compile Include="TemplateHostingObjectAssemblerTests.cs" />

@@ -1,0 +1,5 @@
+﻿<DummyClass xmlns="root">
+  <DummyClass.ChildFromAnotherNamespace>
+    <a:Foreigner xmlns:a="another" />
+  </DummyClass.ChildFromAnotherNamespace>
+</DummyClass>

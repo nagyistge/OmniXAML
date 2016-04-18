@@ -534,7 +534,25 @@ namespace OmniXaml.Tests.Resources
                     P.NamespacePrefixDeclaration(RootNs),
                     P.NonEmptyElement(typeof (DummyClass), RootNs),
                     P.NonEmptyPropertyElement<DummyClass>(d => d.Child, RootNs),
-                    P.EmptyElement(typeof (ChildClass), RootNs),
+                    P.EmptyElement<ChildClass>(RootNs),
+                    P.Text(),
+                    P.EndTag(),
+                    P.EndTag(),
+                };
+            }
+        }
+
+        public IEnumerable<ProtoInstruction> NamespaceDeclarationInChild
+        {
+            get
+            {
+                return new List<ProtoInstruction>
+                {
+                    P.NamespacePrefixDeclaration(RootNs),
+                    P.NonEmptyElement<DummyClass>(RootNs),                    
+                    P.NonEmptyPropertyElement<DummyClass>(d => d.ChildFromAnotherNamespace, RootNs),
+                    P.NamespacePrefixDeclaration(AnotherNs),
+                    P.EmptyElement<Foreigner>(AnotherNs),
                     P.Text(),
                     P.EndTag(),
                     P.EndTag(),

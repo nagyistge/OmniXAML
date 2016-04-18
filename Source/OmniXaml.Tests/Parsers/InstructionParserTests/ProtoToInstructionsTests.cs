@@ -9,13 +9,13 @@
     using OmniXaml.Parsers.Parser;
     using Resources;
 
-    public class ParsingTests : GivenARuntimeTypeSource
+    public class ProtoToInstructionsTests : GivenARuntimeTypeSource
     {
         private readonly IInstructionParser sut;
         private readonly ProtoInstructionResources protoResources;
         private readonly InstructionResources source;
 
-        public ParsingTests()
+        public ProtoToInstructionsTests()
         {
             sut = CreateSut();
             protoResources = new ProtoInstructionResources(this);

@@ -7,11 +7,11 @@
     using Xaml.Tests.Resources;
     using Xunit;
 
-    public class ParsingTests : GivenARuntimeTypeSource
+    public class XamlToProtoInstructionsTests : GivenARuntimeTypeSource
     {
         private readonly ProtoInstructionResources source;
 
-        public ParsingTests()
+        public XamlToProtoInstructionsTests()
         {            
             source = new ProtoInstructionResources(this);
         }
@@ -265,6 +265,14 @@
             var expected = source.DirectContentForOneToMany;
             var actual = sut.Parse(File.LoadAsString(@"Xaml\Dummy\DirectContentForOneToMany.xaml"));
             Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void NamespaceDeclarationInChild()
+        {
+            var sut = CreateSut();
+            var protoInstructions = sut.Parse(File.LoadAsString(@"Xaml\Dummy\NamespaceDeclarationInChild.xaml")).ToList();
+            Assert.Equal(source.NamespaceDeclarationInChild, protoInstructions);
         }
     }
 }
