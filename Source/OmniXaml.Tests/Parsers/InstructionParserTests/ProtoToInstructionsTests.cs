@@ -369,5 +369,13 @@
             var expected = source.ExpandedAttachablePropertyAndItemBelow.ToList();
             Assert.Equal(expected, actual);
         }
+
+        [Fact(Skip = "The only failing test")]
+        public void NamespaceDeclarationInChild() 
+        {
+            var actual = sut.Parse(protoResources.NamespaceDeclarationInChild).ToList();
+            var expected = source.DifferentNamespaces.ToList();
+            Assert.Equal(expected, actual);
+        }
     }
 }
