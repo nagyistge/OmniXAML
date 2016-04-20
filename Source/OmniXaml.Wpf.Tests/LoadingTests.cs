@@ -11,7 +11,7 @@
         [StaFact]
         public void Window()
         {
-            var windowType = typeof(Window);           
+            var windowType = typeof(Window);
 
             var actualInstance = LoadXaml(File.LoadAsString(@"Xaml\Wpf\Window.xaml"));
             Assert.IsType(windowType, actualInstance);
@@ -88,6 +88,24 @@
             Assert.Equal(0x80, color.R);
             Assert.Equal(0x80, color.G);
             Assert.Equal(0x80, color.B);
+        }
+
+        private class EventHandlingWindow : Window
+        {
+            public bool EventFired { get; private set; } = false;
+            private void TextChanged(object sender, RoutedEventArgs args)
+            {
+                EventFired = true;
+            }
+        }
+
+        [StaFact]
+        public void WindowWithEventHandler()
+        {
+            var visualTree = (EventHandlingWindow)LoadXaml(File.LoadAsString(@"Xaml\Wpf\WindowWithEventHandler.xaml"), new EventHandlingWindow());
+            var textBox = (TextBox)visualTree.Content;
+            textBox.Text = "New Text";
+            Assert.True(visualTree.EventFired);
         }
     }
 }
