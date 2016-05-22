@@ -46,26 +46,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Zoo.cs" />
-    <Compile Include="Model\Animal.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Model.xaml">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Source\OmniXaml.Services.DotNetFx\OmniXaml.Services.DotNetFx.csproj">
       <Project>{70B12EBB-E332-402E-BAF0-C55F38A6B753}</Project>
       <Name>OmniXaml.Services.DotNetFx</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Source\OmniXaml\OmniXaml.csproj">
-      <Project>{0D9CC1DE-84C3-40D7-9CC5-B7751E0B25D1}</Project>
-      <Name>OmniXaml</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

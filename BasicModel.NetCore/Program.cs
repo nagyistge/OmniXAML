@@ -2,16 +2,17 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Reflection;
     using Model;
     using OmniXaml;
     using OmniXaml.ObjectAssembler;
-    using OmniXaml.Services.DotNetFx;
+    using OmniXaml.Services;
 
     internal static class Program
     {
         private static void Main()
         {
-            var runtimeTypeSource = RuntimeTypeSource.FromAttributes(Assemblies.AssembliesInAppFolder);
+            var runtimeTypeSource = RuntimeTypeSource.FromAttributes(new [] { Assembly.GetEntryAssembly()});
             
             var loader = new DefaultLoader(runtimeTypeSource);
 

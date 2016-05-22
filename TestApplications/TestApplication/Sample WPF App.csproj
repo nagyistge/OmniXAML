@@ -117,10 +117,6 @@
       <Project>{7784DA26-90C9-402E-8AAE-6D4D59C22D74}</Project>
       <Name>OmniXaml.Services.Mvvm</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Source\OmniXaml.Wpf\OmniXaml.Wpf.csproj">
-      <Project>{3F5DEBE4-D1D2-4190-9AEA-FDD4065FDED7}</Project>
-      <Name>OmniXaml.Wpf</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Source\OmniXaml\OmniXaml.csproj">
       <Project>{0d9cc1de-84c3-40d7-9cc5-b7751e0b25d1}</Project>
       <Name>OmniXaml</Name>

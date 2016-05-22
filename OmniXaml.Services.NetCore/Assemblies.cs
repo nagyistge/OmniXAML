@@ -1,4 +1,4 @@
-namespace OmniXaml.Services.DotNetFx
+namespace OmniXaml.Services
 {
     using System;
     using System.Collections.Generic;
@@ -9,13 +9,12 @@ namespace OmniXaml.Services.DotNetFx
 
     public static class Assemblies
     {
-        public static IEnumerable<Assembly> ReferencedAssemblies => Assembly.GetCallingAssembly().GetReferencedAssemblies().Select(Assembly.Load);
-        public static IEnumerable<Assembly> AppDomainAssemblies => AppDomain.CurrentDomain.GetAssemblies();
+        public static IEnumerable<Assembly> ReferencedAssemblies => Assembly.GetEntryAssembly().GetReferencedAssemblies().Select(Assembly.Load);
         public static IEnumerable<Assembly> AssembliesInAppFolder
         {
             get
             {
-                var entryAssembly = Assembly.GetExecutingAssembly();
+                var entryAssembly = Assembly.GetEntryAssembly();
                 var path = entryAssembly.Location;
                 var folder = Path.GetDirectoryName(path);
                 var assemblies = new Collection<Assembly>();
@@ -26,7 +25,7 @@ namespace OmniXaml.Services.DotNetFx
                 {
                     try
                     {
-                        assemblies.Add(Assembly.LoadFile(fileName));
+                        assemblies.Add(Assembly.Load(new AssemblyName(fileName)));
                     }
                     catch (FileNotFoundException)
                     {                        

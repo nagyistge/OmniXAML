@@ -1,4 +1,4 @@
-﻿namespace OmniXaml.Services.DotNetFx
+﻿namespace OmniXaml.Services
 {
     using System.IO;
     using ObjectAssembler;

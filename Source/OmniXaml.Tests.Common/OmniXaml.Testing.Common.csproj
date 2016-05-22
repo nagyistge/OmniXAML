@@ -37,11 +37,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DummyParserFactory.cs" />
-    <Compile Include="TestRuntimeTypeSource.cs" />
-    <Compile Include="XamlTypeMock.cs" />
-    <Compile Include="TestTypeRepository.cs" />
-    <Compile Include="GivenARuntimeTypeSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -51,10 +46,6 @@
     <ProjectReference Include="..\OmniXaml.Tests.Classes\OmniXaml.Testing.Classes.csproj">
       <Project>{e6fda529-90c2-4dda-9080-7e7eef64b2ca}</Project>
       <Name>OmniXaml.Testing.Classes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OmniXaml\OmniXaml.csproj">
-      <Project>{0d9cc1de-84c3-40d7-9cc5-b7751e0b25d1}</Project>
-      <Name>OmniXaml</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

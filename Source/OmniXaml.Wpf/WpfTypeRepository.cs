@@ -1,7 +1,7 @@
 namespace OmniXaml.Wpf
 {
     using System;
-    using Glass.Core;
+    using Glass;
     using Typing;
 
     public class WpfTypeRepository : TypeRepository

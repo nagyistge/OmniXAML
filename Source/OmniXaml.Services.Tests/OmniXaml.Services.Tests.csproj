@@ -70,10 +70,6 @@
       <Project>{70B12EBB-E332-402E-BAF0-C55F38A6B753}</Project>
       <Name>OmniXaml.Services.DotNetFx</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Source\OmniXaml\OmniXaml.csproj">
-      <Project>{0D9CC1DE-84C3-40D7-9CC5-B7751E0B25D1}</Project>
-      <Name>OmniXaml</Name>
-    </ProjectReference>
     <ProjectReference Include="..\OmniXaml.Tests.Classes\OmniXaml.Testing.Classes.csproj">
       <Project>{E6FDA529-90C2-4DDA-9080-7E7EEF64B2CA}</Project>
       <Name>OmniXaml.Testing.Classes</Name>

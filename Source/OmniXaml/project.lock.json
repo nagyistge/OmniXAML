@@ -3,8 +3,16 @@
   "version": 2,
   "targets": {
     ".NETStandard,Version=v1.5": {
-      "Glass.Core/2.0.0.1": {
+      "Glass.Core/2.0.1-beta-1": {
         "type": "package",
+        "dependencies": {
+          "System.Dynamic.Runtime": "4.0.11-rc3-24117-00",
+          "System.IO": "4.1.0-rc3-24117-00",
+          "System.Linq": "4.1.0-rc3-24117-00",
+          "System.Linq.Expressions": "4.1.0-rc3-24117-00",
+          "System.Reflection": "4.1.0-rc3-24117-00",
+          "System.Reflection.Extensions": "4.0.1-rc3-24117-00"
+        },
         "compile": {
           "lib/netstandard1.5/Glass.Core.dll": {}
         },
@@ -233,6 +241,32 @@
         },
         "compile": {
           "ref/netstandard1.5/System.Diagnostics.Tracing.dll": {}
+        }
+      },
+      "System.Dynamic.Runtime/4.0.11-rc3-24117-00": {
+        "type": "package",
+        "dependencies": {
+          "System.Collections": "4.0.11-rc3-24117-00",
+          "System.Diagnostics.Debug": "4.0.11-rc3-24117-00",
+          "System.Globalization": "4.0.11-rc3-24117-00",
+          "System.Linq": "4.1.0-rc3-24117-00",
+          "System.Linq.Expressions": "4.1.0-rc3-24117-00",
+          "System.ObjectModel": "4.0.12-rc3-24117-00",
+          "System.Reflection": "4.1.0-rc3-24117-00",
+          "System.Reflection.Emit": "4.0.1-rc3-24117-00",
+          "System.Reflection.Emit.ILGeneration": "4.0.1-rc3-24117-00",
+          "System.Reflection.Primitives": "4.0.1-rc3-24117-00",
+          "System.Reflection.TypeExtensions": "4.1.0-rc3-24117-00",
+          "System.Resources.ResourceManager": "4.0.1-rc3-24117-00",
+          "System.Runtime": "4.1.0-rc3-24117-00",
+          "System.Runtime.Extensions": "4.1.0-rc3-24117-00",
+          "System.Threading": "4.0.11-rc3-24117-00"
+        },
+        "compile": {
+          "ref/netstandard1.3/System.Dynamic.Runtime.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/System.Dynamic.Runtime.dll": {}
         }
       },
       "System.Globalization/4.0.11-rc3-24117-00": {
@@ -998,11 +1032,11 @@
     }
   },
   "libraries": {
-    "Glass.Core/2.0.0.1": {
-      "sha512": "LwxKzy5Zm3GhjzXdWwpgvdDoAYYtnyrZ5fBeXD1v0RDp4h74XrkHa/7YeEKEQsxE0BZqn6wGLYwcCEVt2m/ExQ==",
+    "Glass.Core/2.0.1-beta-1": {
+      "sha512": "MdNwS4dOob5gag72PY7TvuFESLSu4niySiZDGzqqHFG3wgixj2E/mVpMHHam9O8Od0oMaJhsdNtxFFWk/gI/ZA==",
       "type": "package",
       "files": [
-        "Glass.Core.2.0.0.1.nupkg.sha512",
+        "Glass.Core.2.0.1-beta-1.nupkg.sha512",
         "Glass.Core.nuspec",
         "lib/netstandard1.5/Glass.Core.dll"
       ]
@@ -1578,6 +1612,74 @@
         "ref/xamarinmac20/_._",
         "ref/xamarintvos10/_._",
         "ref/xamarinwatchos10/_._"
+      ]
+    },
+    "System.Dynamic.Runtime/4.0.11-rc3-24117-00": {
+      "sha512": "C6hTjzTTM1tr2QbYFq2s+q7Y1RqN5eLvYUANuW7gCqMw20NElabWw4laX0E3dKOnAXo19QLHnJOaTnk97U48rA==",
+      "type": "package",
+      "files": [
+        "System.Dynamic.Runtime.4.0.11-rc3-24117-00.nupkg.sha512",
+        "System.Dynamic.Runtime.nuspec",
+        "ThirdPartyNotices.txt",
+        "dotnet_library_license.txt",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net45/_._",
+        "lib/netcore50/System.Dynamic.Runtime.dll",
+        "lib/netstandard1.3/System.Dynamic.Runtime.dll",
+        "lib/portable-net45+win8+wp8+wpa81/_._",
+        "lib/win8/_._",
+        "lib/wp80/_._",
+        "lib/wpa81/_._",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net45/_._",
+        "ref/netcore50/System.Dynamic.Runtime.dll",
+        "ref/netcore50/System.Dynamic.Runtime.xml",
+        "ref/netcore50/de/System.Dynamic.Runtime.xml",
+        "ref/netcore50/es/System.Dynamic.Runtime.xml",
+        "ref/netcore50/fr/System.Dynamic.Runtime.xml",
+        "ref/netcore50/it/System.Dynamic.Runtime.xml",
+        "ref/netcore50/ja/System.Dynamic.Runtime.xml",
+        "ref/netcore50/ko/System.Dynamic.Runtime.xml",
+        "ref/netcore50/ru/System.Dynamic.Runtime.xml",
+        "ref/netcore50/zh-hans/System.Dynamic.Runtime.xml",
+        "ref/netcore50/zh-hant/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.0/System.Dynamic.Runtime.dll",
+        "ref/netstandard1.0/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.0/de/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.0/es/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.0/fr/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.0/it/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.0/ja/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.0/ko/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.0/ru/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.0/zh-hans/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.0/zh-hant/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.3/System.Dynamic.Runtime.dll",
+        "ref/netstandard1.3/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.3/de/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.3/es/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.3/fr/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.3/it/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.3/ja/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.3/ko/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.3/ru/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.3/zh-hans/System.Dynamic.Runtime.xml",
+        "ref/netstandard1.3/zh-hant/System.Dynamic.Runtime.xml",
+        "ref/portable-net45+win8+wp8+wpa81/_._",
+        "ref/win8/_._",
+        "ref/wp80/_._",
+        "ref/wpa81/_._",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "runtimes/aot/lib/netcore50/System.Dynamic.Runtime.dll"
       ]
     },
     "System.Globalization/4.0.11-rc3-24117-00": {
@@ -3914,12 +4016,14 @@
   },
   "projectFileDependencyGroups": {
     "": [
-      "Glass.Core >= 2.0.0.1",
+      "Glass.Core >= 2.0.1-beta-1",
       "NETStandard.Library >= 1.5.0-rc3-24117-00",
       "Sprache.SuperJMN >= 1.10.0.2",
       "System.Linq >= 4.1.0-rc3-24117-00",
       "System.Linq.Expressions >= 4.1.0-rc3-24117-00"
     ],
     ".NETStandard,Version=v1.5": []
-  }
+  },
+  "tools": {},
+  "projectFileToolGroups": {}
 }

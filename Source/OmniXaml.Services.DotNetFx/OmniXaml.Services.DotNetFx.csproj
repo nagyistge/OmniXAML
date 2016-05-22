@@ -36,9 +36,7 @@
     <Compile Include="..\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Assemblies.cs" />
     <Compile Include="InflatableTranslator.cs" />
-    <Compile Include="LoadMixin.cs" />
     <Compile Include="Types.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -52,10 +50,6 @@
     <ProjectReference Include="..\OmniXaml.Services\OmniXaml.Services.csproj">
       <Project>{B207C0CB-2BDF-4105-9E1D-1C5B98E98381}</Project>
       <Name>OmniXaml.Services</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OmniXaml\OmniXaml.csproj">
-      <Project>{0d9cc1de-84c3-40d7-9cc5-b7751e0b25d1}</Project>
-      <Name>OmniXaml</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

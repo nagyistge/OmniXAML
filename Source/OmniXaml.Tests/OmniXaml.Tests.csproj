@@ -73,49 +73,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfiguredAssemblyWithNamespacesTests.cs" />
-    <Compile Include="LookaheadBufferTests.cs" />
-    <Compile Include="MetadataProvider.cs" />
-    <Compile Include="NameScopeTests.cs" />
-    <Compile Include="Resources\MarkupExtensionNodeResources.cs" />
-    <Compile Include="Parsers\ProtoInstructionParserTests\ParsingTests.cs" />
-    <Compile Include="Parsers\ProtoInstructionParserTests\PrefixTests.cs" />
-    <Compile Include="Parsers\InstructionParserTests\MemberNodesBlock.cs" />
-    <Compile Include="SetupSequence.cs" />
-    <Compile Include="StackWithLinkedNodesTests.cs" />
-    <Compile Include="Parsers\MarkupExtensionParserTests\ParsingTests.cs" />
-    <Compile Include="Parsers\MarkupExtensionParserTests\MarkupExtensionNodeToXamlNodesConverterTests.cs" />
-    <Compile Include="Parsers\InstructionParserTests\ParsingTests.cs" />
-    <Compile Include="Resources\ProtoInstructionResources.cs" />
-    <Compile Include="Parsers\InstructionParserTests\MarkupExtensionsParsingFromProtoToXaml.cs" />
-    <Compile Include="TemplateHostingObjectAssemblerTests.cs" />
-    <Compile Include="TestListener.cs" />
-    <Compile Include="TypeFactoryDummy.cs" />
-    <Compile Include="TypeFeatureProviderDummy.cs" />
-    <Compile Include="InstructionTreeBuilderTests.cs" />
-    <Compile Include="MemberDependencyNodeSorterTests.cs" />
-    <Compile Include="TypeFeatureProviderTests.cs" />
-    <Compile Include="VisualizationTests.cs" />
-    <Compile Include="ObjectAssemblerTests.cs" />
-    <Compile Include="Resources\InstructionResources.cs" />
-    <Compile Include="TypeRepositoryTests.cs" />
-    <Compile Include="NamespaceRegistryTests.cs" />
-    <Compile Include="Parsers\Integration\FromXamlToInstructions.cs" />
-    <Compile Include="XamlXmlLoaderTests\NameScopeTests.cs" />
-    <Compile Include="XamlXmlLoaderTests\ParsingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XamlXmlLoaderTests\MarkupExtensionsTests.cs" />
-    <Compile Include="XamlXmlLoaderTests\GivenAXmlLoader.cs" />
-    <Compile Include="XamlXmlLoaderTests\SpecialTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Source\OmniXaml.Services.DotNetFx\OmniXaml.Services.DotNetFx.csproj">
       <Project>{70B12EBB-E332-402E-BAF0-C55F38A6B753}</Project>
       <Name>OmniXaml.Services.DotNetFx</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Source\OmniXaml\OmniXaml.csproj">
-      <Project>{0D9CC1DE-84C3-40D7-9CC5-B7751E0B25D1}</Project>
-      <Name>OmniXaml</Name>
     </ProjectReference>
     <ProjectReference Include="..\OmniXaml.Tests.Classes\OmniXaml.Testing.Classes.csproj">
       <Project>{E6FDA529-90C2-4DDA-9080-7E7EEF64B2CA}</Project>

@@ -47,12 +47,6 @@
     <Compile Include="ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OmniXaml\OmniXaml.csproj">
-      <Project>{0D9CC1DE-84C3-40D7-9CC5-B7751E0B25D1}</Project>
-      <Name>OmniXaml</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="project.json" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
