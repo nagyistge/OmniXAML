@@ -1,13 +1,13 @@
-using OmniXaml.Tests.Classes.Another;
+using OmniXaml.Testing.Classes.Another;
 
 namespace OmniXaml.Tests.Resources
 {
     using System.Collections;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using Classes;
-    using Classes.WpfLikeModel;
-    using Common;
+    using OmniXaml.Testing.Classes;
+    using OmniXaml.Testing.Classes.WpfLikeModel;
+    using OmniXaml.Testing.Common;
     using Typing;
 
     internal class ProtoInstructionResources
@@ -670,7 +670,7 @@ namespace OmniXaml.Tests.Resources
                 {
                     P.NamespacePrefixDeclaration("sysCol", "clr-namespace:System.Collections;assembly=mscorlib"),
                     P.NamespacePrefixDeclaration("sys", "clr-namespace:System;assembly=mscorlib"),
-                    P.NonEmptyElement(typeof (ArrayList), colections),
+                    P.NonEmptyElement(typeof (System.Collections.Generic.List<object>), colections),
                     P.NonEmptyElement(typeof (int), system),
                     P.Text("1"),
                     P.EndTag(),
@@ -699,7 +699,7 @@ namespace OmniXaml.Tests.Resources
                 {
                     P.NamespacePrefixDeclaration(colections),
                     P.NamespacePrefixDeclaration(root),
-                    P.NonEmptyElement<ArrayList>(colections),
+                    P.NonEmptyElement<System.Collections.Generic.List<object>>(colections),
 
                     P.EmptyElement<DummyClass>(root),
                     P.Text(),

@@ -3,9 +3,9 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using Common;
+    using OmniXaml.Testing.Common;
     using Xunit;
-    using Resources;
+    using OmniXaml.Tests.Resources;
 
     public class MemberDependencyNodeSorterTests : GivenARuntimeTypeSource
     {

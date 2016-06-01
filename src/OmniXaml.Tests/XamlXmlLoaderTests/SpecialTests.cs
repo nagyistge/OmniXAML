@@ -1,8 +1,7 @@
 namespace OmniXaml.Tests.XamlXmlLoaderTests
 {
-    using Classes;
-    using Common;
-    using Common.DotNetFx;
+    using OmniXaml.Testing.Classes;
+    using OmniXaml.Testing.Common;
     using Xunit;
 
     public abstract class SpecialTests : GivenARuntimeTypeSource

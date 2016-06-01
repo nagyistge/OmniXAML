@@ -3,11 +3,11 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
-    using Classes;
-    using Common;
+    using OmniXaml.Testing.Classes;
+    using OmniXaml.Testing.Common;
     using Xunit;
     using OmniXaml.Parsers.Parser;
-    using Resources;
+    using OmniXaml.Tests.Resources;
 
     public class ParsingTests : GivenARuntimeTypeSource
     {

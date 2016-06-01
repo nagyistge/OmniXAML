@@ -4,10 +4,10 @@
     using System.Collections;
     using System.Diagnostics;
     using System.Linq;
-    using Classes;
-    using Classes.WpfLikeModel;
+    using OmniXaml.Testing.Classes;
+    using OmniXaml.Testing.Classes.WpfLikeModel;
     using Xunit;
-    using Xaml.Tests.Resources;
+    using OmniXaml.Testing.Resources;
 
     public class ParsingTests : GivenAXmlLoader
     {

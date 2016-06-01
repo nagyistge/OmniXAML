@@ -1,7 +1,7 @@
 namespace OmniXaml.Tests
 {
-    using Classes;
-    using Common;
+    using OmniXaml.Testing.Classes;
+    using OmniXaml.Testing.Common;
     using Typing;
     using Xunit;
 

@@ -1,16 +1,28 @@
 {
-  "version": "1.0.0-*",
-
+    "version": "1.0.0-*",
+    "testRunner": "xunit",
   "dependencies": {
-    "NETStandard.Library": "1.5.0-rc4-24126-00",
-    "OmniXaml": "1.0.0-beta-*",
+    "xunit": "2.1.0",
+    "OmniXaml": "1.0.0-*",
+    "OmniXaml.Testing.Resources": "1.0.0-*",
+    "OmniXaml.Testing.Common": "1.0.0-*",
     "OmniXaml.Testing.Classes": "1.0.0-*",
-    "OmniXaml.Testing.Resources": "1.0.0-*"
+    "OmniXaml.Services": "1.0.0-*",
+    "Glass.Core": "2.0.1-beta1",
+    "dotnet-test-xunit": "1.0.0-rc2-build10025"
   },
-
-  "frameworks": {
-    "netstandard1.5": {
-      "imports": "dnxcore50"
+    "frameworks": {
+        "netcoreapp1.0": {
+            "dependencies": {
+			 "Microsoft.NETCore.App": {
+                    "type": "platform",
+                    "version": "1.0.0-rc2-3002702"
+                }
+            },
+            "imports": [
+                "dnxcore50",
+                "portable-net45+win8"
+            ]
+        }
     }
-  }
 }

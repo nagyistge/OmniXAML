@@ -2,11 +2,12 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Classes;
-    using Classes.WpfLikeModel;
-    using Common;
+    using OmniXaml.Testing.Classes;
+    using OmniXaml.Testing.Classes.WpfLikeModel;
+    using OmniXaml.Testing.Common;
     using Xunit;
-    using Resources;
+    using OmniXaml.Testing.Resources;
+    using OmniXaml.Tests.Resources;
 
     public class LookaheadBufferTests : GivenARuntimeTypeSource
     {

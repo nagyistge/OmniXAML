@@ -3,11 +3,12 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using Classes;
-    using Classes.WpfLikeModel;
-    using Common;
+    using OmniXaml.Testing.Classes;
+    using OmniXaml.Testing.Classes.WpfLikeModel;
+    using OmniXaml.Testing.Common;
     using ObjectAssembler;
-    using Resources;
+    using OmniXaml.Testing.Resources;
+    using OmniXaml.Tests.Resources;
     using TypeConversion;
     using Xunit;
 
@@ -274,20 +275,20 @@
         {
             sut.Process(source.MixedCollection);
             var result = sut.Result;
-            Assert.IsType(typeof(ArrayList), result);
-            var arrayList = (ArrayList) result;
+            Assert.IsType(typeof(System.Collections.Generic.List<object>), result);
+            var arrayList = (System.Collections.Generic.List<object>) result;
             Assert.True(arrayList.Count > 0);
         }
 
         [Fact]
         public void MixedCollectionWithRootInstance()
         {
-            var root = new ArrayList();
+            var root = new System.Collections.Generic.List<object>();
             var assembler = CreateSutForLoadingSpecificInstance(root);
             assembler.Process(source.MixedCollection);
             var result = assembler.Result;
-            Assert.IsType(typeof(ArrayList), result);
-            var arrayList = (ArrayList) result;
+            Assert.IsType(typeof(System.Collections.Generic.List<object>), result);
+            var arrayList = (System.Collections.Generic.List<object>) result;
             Assert.True(arrayList.Count > 0);
         }
 
@@ -385,7 +386,7 @@
         public void PureCollection()
         {
             sut.Process(source.PureCollection);
-            var actual = (ArrayList) sut.Result;
+            var actual = (System.Collections.Generic.List<object>) sut.Result;
             Assert.NotEmpty(actual);
         }
 

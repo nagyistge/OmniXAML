@@ -1,7 +1,8 @@
 ﻿namespace OmniXaml.Tests.XamlXmlLoaderTests
 {
-    using Classes;
-    using Xaml.Tests.Resources;
+    using OmniXaml.Testing.Classes;
+    using OmniXaml.Testing.Resources;
+    using OmniXaml.Tests.Resources;
     using Xunit;
 
     public class MarkupExtensionsTests : GivenAXmlLoader

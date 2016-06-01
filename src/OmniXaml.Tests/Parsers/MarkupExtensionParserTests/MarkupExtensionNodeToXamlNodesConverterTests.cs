@@ -3,11 +3,12 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
-    using Classes;
-    using Common;
+    using OmniXaml.Testing.Classes;
+    using OmniXaml.Testing.Common;
     using Xunit;
     using OmniXaml.Parsers.MarkupExtensions;
-    using Resources;
+    using OmniXaml.Testing.Resources;
+    using OmniXaml.Tests.Resources;
 
     public class MarkupExtensionNodeToXamlNodesConverterTests : GivenARuntimeTypeSource
     {     

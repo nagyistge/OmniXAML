@@ -1,10 +1,10 @@
 ﻿namespace OmniXaml.Tests.Parsers.ProtoInstructionParserTests
 {
     using System.Linq;
-    using Common;
+    using OmniXaml.Testing.Common;
     using OmniXaml.Parsers.ProtoParser;
-    using Resources;
-    using Xaml.Tests.Resources;
+    using OmniXaml.Testing.Resources;
+    using OmniXaml.Tests.Resources;
     using Xunit;
 
     public class ParsingTests : GivenARuntimeTypeSource
@@ -185,7 +185,7 @@
         public void CommentIsIgnored()
         {
             var sut = CreateSut();
-            Assert.Equal(source.SingleOpenAndClose, sut.Parse(File.LoadAsString(@"Xaml\Dummy\Comment.xaml")));
+            Assert.Equal(source.SingleOpenAndClose, sut.Parse(XamlResources.Comment));
         }
 
         [Fact]

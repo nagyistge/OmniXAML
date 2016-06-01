@@ -4,10 +4,10 @@ namespace OmniXaml.Tests.Resources
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using Builder;
-    using Classes;
-    using Classes.Another;
-    using Classes.WpfLikeModel;
-    using Common;
+    using OmniXaml.Testing.Classes;
+    using OmniXaml.Testing.Classes.Another;
+    using OmniXaml.Testing.Classes.WpfLikeModel;
+    using OmniXaml.Testing.Common;
     using Typing;
 
     public class InstructionResources
@@ -1467,7 +1467,7 @@ namespace OmniXaml.Tests.Resources
                 {
                     X.NamespacePrefixDeclaration(colections),
                     X.NamespacePrefixDeclaration(RootNs),
-                    X.StartObject<ArrayList>(),
+                    X.StartObject<System.Collections.Generic.List<object>>(),
 
                     X.Items(),
                     
@@ -1793,7 +1793,7 @@ namespace OmniXaml.Tests.Resources
                 {
                     X.NamespacePrefixDeclaration(colections),
                     X.NamespacePrefixDeclaration(system),
-                    X.StartObject<ArrayList>(),
+                    X.StartObject<System.Collections.Generic.List<object>>(),
 
                         X.Items(),
 

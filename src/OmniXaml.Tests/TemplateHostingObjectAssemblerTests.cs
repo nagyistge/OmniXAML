@@ -1,14 +1,14 @@
 ﻿namespace OmniXaml.Tests
 {
     using System.Collections.ObjectModel;
-    using Classes;
-    using Classes.Templates;
-    using Classes.WpfLikeModel;
+    using OmniXaml.Testing.Classes;
+    using OmniXaml.Testing.Classes.Templates;
+    using OmniXaml.Testing.Classes.WpfLikeModel;
     using Xunit;
     using ObjectAssembler;
     using TypeConversion;
     using System.Collections.Generic;
-    using Common;
+    using OmniXaml.Testing.Common;
 
     public class TemplateHostingObjectAssemblerTests : GivenARuntimeTypeSource
     {

@@ -9,10 +9,10 @@
         [Fact]
         public void LooksInCorrectNamespace()
         {
-            var expectedType = typeof(OmniXaml.Tests.Classes.Another.DummyChild);
+            var expectedType = typeof(OmniXaml.Testing.Classes.Another.DummyChild);
             var can = new ConfiguredAssemblyWithNamespaces(
-                Assembly.GetAssembly(expectedType),
-                new[] { "OmniXaml.Tests.Classes.Another" });
+                expectedType.GetTypeInfo().Assembly,
+                new[] { "OmniXaml.Testing.Classes.Another" });
 
             var result = can.Get("DummyChild");
 

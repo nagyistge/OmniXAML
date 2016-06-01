@@ -1,8 +1,8 @@
 ﻿namespace OmniXaml.Tests
 {
     using System.Collections.ObjectModel;
-    using Classes;
-    using Common;
+    using OmniXaml.Testing.Classes;
+    using OmniXaml.Testing.Common;
     using Xunit;
     using Visualization;
 

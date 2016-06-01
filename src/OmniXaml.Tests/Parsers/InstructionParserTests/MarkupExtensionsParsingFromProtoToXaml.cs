@@ -2,8 +2,8 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Classes;
-    using Common;
+    using OmniXaml.Testing.Classes;
+    using OmniXaml.Testing.Common;
     using Xunit;
     using OmniXaml.Parsers.Parser;
 

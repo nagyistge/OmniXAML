@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Reflection;
     using Builder;
-    using Classes;
+    using OmniXaml.Testing.Classes;
     using Xunit;
     using Typing;
 
@@ -24,7 +24,7 @@
             registry.RegisterPrefix(new PrefixRegistration("clr", clrNamespace));
             registry.AddNamespace(
                 XamlNamespace.Map("target")
-                    .With(new[] { Route.Assembly(type.Assembly).WithNamespaces(new[] { type.Namespace }) }));
+                    .With(new[] { Route.Assembly(type.GetTypeInfo().Assembly).WithNamespaces(new[] { type.Namespace }) }));
         }
 
         [Fact]

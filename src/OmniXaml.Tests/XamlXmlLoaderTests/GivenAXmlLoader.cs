@@ -1,7 +1,6 @@
 ﻿namespace OmniXaml.Tests.XamlXmlLoaderTests
 {
-    using Common;
-    using Common.DotNetFx;
+    using OmniXaml.Testing.Common;
 
     public class GivenAXmlLoader : GivenARuntimeTypeSource
     {
