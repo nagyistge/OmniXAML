@@ -17,5 +17,10 @@ namespace OmniXaml.Typing
         {
             return SetEquals((IEnumerable<DependencyRegistration>) obj);
         }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

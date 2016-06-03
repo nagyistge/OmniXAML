@@ -185,7 +185,7 @@
         public void CommentIsIgnored()
         {
             var sut = CreateSut();
-            Assert.Equal(source.SingleOpenAndClose, sut.Parse(XamlResources.Comment));
+            Assert.Equal(source.SingleOpenAndClose, sut.Parse(File.LoadAsString(@"Xaml\Dummy\Comment.xaml")));
         }
 
         [Fact]
