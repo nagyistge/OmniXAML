@@ -1,4 +1,4 @@
-﻿<sysCol:ArrayList xmlns:sysCol="clr-namespace:System.Collections;assembly=mscorlib"
+﻿<sysCol:ArrayList xmlns:sysCol="clr-namespace:System.Collections;assembly=System.Collections.NonGeneric"
            xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <sys:Int32>1</sys:Int32>
     <sys:Int32>2</sys:Int32>

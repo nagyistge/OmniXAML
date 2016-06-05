@@ -1,4 +1,4 @@
-﻿<sysCol:ArrayList xmlns:sysCol="clr-namespace:System.Collections;assembly=mscorlib"
+﻿<sysCol:ArrayList xmlns:sysCol="clr-namespace:System.Collections;assembly=System.Collections.NonGeneric"
                   xmlns="root">
     <DummyClass />
     <DummyClass />

@@ -216,7 +216,7 @@
         public void MixedCollection()
         {
             var sut = CreateSut();
-            var actual = sut.Parse(File.LoadAsString(@"Xaml\Dummy\MixedCollection.xaml"));
+            var actual = sut.Parse(File.LoadAsString(@"Xaml\Dummy\MixedCollection.xaml")).ToList();
             var expected = source.MixedCollection;
 
             Assert.Equal(expected, actual);

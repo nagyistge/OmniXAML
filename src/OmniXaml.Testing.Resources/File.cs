@@ -5,8 +5,11 @@ namespace OmniXaml.Testing.Resources
 
     public static class File
     {
-        public static string LoadAsString(string path)
+        public static string LoadAsString(string relativePath)
         {
+            var root = @"..\OmniXaml.Testing.Resources";
+            var path = Path.Combine(root, relativePath);
+
             using (var file = new StreamReader(new FileStream(path, FileMode.Open)))
             {               
                 var str = file.ReadToEnd();

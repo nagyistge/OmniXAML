@@ -275,8 +275,8 @@
         {
             sut.Process(source.MixedCollection);
             var result = sut.Result;
-            Assert.IsType(typeof(System.Collections.Generic.List<object>), result);
-            var arrayList = (System.Collections.Generic.List<object>) result;
+            Assert.IsType(typeof(ArrayList), result);
+            var arrayList = (ArrayList) result;
             Assert.True(arrayList.Count > 0);
         }
 
@@ -386,7 +386,7 @@
         public void PureCollection()
         {
             sut.Process(source.PureCollection);
-            var actual = (System.Collections.Generic.List<object>) sut.Result;
+            var actual = (ArrayList) sut.Result;
             Assert.NotEmpty(actual);
         }
 

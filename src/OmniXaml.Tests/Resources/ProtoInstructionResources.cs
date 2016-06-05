@@ -664,22 +664,22 @@ namespace OmniXaml.Tests.Resources
             get
             {
                 var system = new NamespaceDeclaration("clr-namespace:System;assembly=mscorlib", "sys");
-                var colections = new NamespaceDeclaration("clr-namespace:System.Collections;assembly=mscorlib", "sysCol");
+                var colections = new NamespaceDeclaration("clr-namespace:System.Collections;assembly=System.Collections.NonGeneric", "sysCol");
 
                 return new List<ProtoInstruction>
                 {
-                    P.NamespacePrefixDeclaration("sysCol", "clr-namespace:System.Collections;assembly=mscorlib"),
-                    P.NamespacePrefixDeclaration("sys", "clr-namespace:System;assembly=mscorlib"),
-                    P.NonEmptyElement(typeof (System.Collections.Generic.List<object>), colections),
-                    P.NonEmptyElement(typeof (int), system),
+                    P.NamespacePrefixDeclaration(colections),
+                    P.NamespacePrefixDeclaration(system),
+                    P.NonEmptyElement<ArrayList>(colections),
+                    P.NonEmptyElement<int>(system),
                     P.Text("1"),
                     P.EndTag(),
                     P.Text(),
-                    P.NonEmptyElement(typeof (int), system),
+                    P.NonEmptyElement<int>(system),
                     P.Text("2"),
                     P.EndTag(),
                     P.Text(),
-                    P.NonEmptyElement(typeof (int), system),
+                    P.NonEmptyElement<int>(system),
                     P.Text("3"),
                     P.EndTag(),
                     P.Text(),
@@ -692,14 +692,14 @@ namespace OmniXaml.Tests.Resources
         {
             get
             {
-                var colections = new NamespaceDeclaration("clr-namespace:System.Collections;assembly=mscorlib", "sysCol");
+                var colections = new NamespaceDeclaration("clr-namespace:System.Collections;assembly=System.Collections.NonGeneric", "sysCol");
                 var root = new NamespaceDeclaration("root", "");
                 
                 return new List<ProtoInstruction>
                 {
                     P.NamespacePrefixDeclaration(colections),
                     P.NamespacePrefixDeclaration(root),
-                    P.NonEmptyElement<System.Collections.Generic.List<object>>(colections),
+                    P.NonEmptyElement<ArrayList>(colections),
 
                     P.EmptyElement<DummyClass>(root),
                     P.Text(),

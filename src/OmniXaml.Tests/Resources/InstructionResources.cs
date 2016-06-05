@@ -1462,12 +1462,12 @@ namespace OmniXaml.Tests.Resources
         {
             get
             {
-                var colections = new NamespaceDeclaration("clr-namespace:System.Collections;assembly=mscorlib", "sysCol");
+                var colections = new NamespaceDeclaration("clr-namespace:System.Collections;assembly=System.Collections.NonGeneric", "sysCol");
                 return new List<Instruction>
                 {
                     X.NamespacePrefixDeclaration(colections),
                     X.NamespacePrefixDeclaration(RootNs),
-                    X.StartObject<System.Collections.Generic.List<object>>(),
+                    X.StartObject<ArrayList>(),
 
                     X.Items(),
                     
@@ -1786,14 +1786,14 @@ namespace OmniXaml.Tests.Resources
         {
             get
             {
-                var colections = new NamespaceDeclaration("clr-namespace:System.Collections;assembly=mscorlib", "sysCol");
+                var colections = new NamespaceDeclaration("clr-namespace:System.Collections;assembly=System.Collections.NonGeneric", "sysCol");
                 var system = new NamespaceDeclaration("clr-namespace:System;assembly=mscorlib", "sys");
 
                 return new List<Instruction>
                 {
                     X.NamespacePrefixDeclaration(colections),
                     X.NamespacePrefixDeclaration(system),
-                    X.StartObject<System.Collections.Generic.List<object>>(),
+                    X.StartObject<ArrayList>(),
 
                         X.Items(),
 
