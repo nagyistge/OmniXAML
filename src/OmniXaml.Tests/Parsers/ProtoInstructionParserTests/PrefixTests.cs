@@ -3,9 +3,9 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
-    using OmniXaml.Testing.Classes;
-    using OmniXaml.Testing.Classes.Another;
-    using OmniXaml.Testing.Common;
+    using Testing.Classes;
+    using Testing.Classes.Another;
+    using Testing.Common;
     using OmniXaml.Parsers.ProtoParser;
     using Xunit;
 
@@ -60,7 +60,7 @@
             var expectedInstructions = new Collection<ProtoInstruction>
             {
                 P.NamespacePrefixDeclaration(AnotherNs),
-                P.NonEmptyElement<OmniXaml.Testing.Classes.Another.DummyChild>(AnotherNs),
+                P.NonEmptyElement<Testing.Classes.Another.DummyChild>(AnotherNs),
                 P.EndTag(),
             };
 

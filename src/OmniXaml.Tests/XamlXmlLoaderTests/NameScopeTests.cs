@@ -1,8 +1,8 @@
 namespace OmniXaml.Tests.XamlXmlLoaderTests
 {
-    using OmniXaml.Testing.Classes;
+    using Testing.Classes;
     using Xunit;
-    using OmniXaml.Testing.Resources;
+    using Testing.Resources;
   
     public class NameScopeTests : GivenAXmlLoader
     {

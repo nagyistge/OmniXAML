@@ -1,10 +1,10 @@
 ﻿namespace OmniXaml.Tests.Parsers.ProtoInstructionParserTests
 {
     using System.Linq;
-    using OmniXaml.Testing.Common;
+    using Testing.Common;
     using OmniXaml.Parsers.ProtoParser;
-    using OmniXaml.Testing.Resources;
-    using OmniXaml.Tests.Resources;
+    using Testing.Resources;
+    using Resources;
     using Xunit;
 
     public class ParsingTests : GivenARuntimeTypeSource

@@ -9,7 +9,7 @@
         [Fact]
         public void LooksInCorrectNamespace()
         {
-            var expectedType = typeof(OmniXaml.Testing.Classes.Another.DummyChild);
+            var expectedType = typeof(Testing.Classes.Another.DummyChild);
             var can = new ConfiguredAssemblyWithNamespaces(
                 expectedType.GetTypeInfo().Assembly,
                 new[] { "OmniXaml.Testing.Classes.Another" });

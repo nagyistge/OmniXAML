@@ -4,8 +4,7 @@
     using System.Linq;
     using Xunit;
     using OmniXaml.Parsers.MarkupExtensions;
-    using OmniXaml.Testing.Resources;
-    using OmniXaml.Tests.Resources;
+    using Resources;
     using Sprache;
 
     public class ParsingTests

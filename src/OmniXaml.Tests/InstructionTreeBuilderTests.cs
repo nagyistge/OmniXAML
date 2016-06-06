@@ -3,11 +3,10 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
-    using OmniXaml.Testing.Classes;
-    using OmniXaml.Testing.Common;
+    using Testing.Classes;
+    using Testing.Common;
     using Xunit;
-    using OmniXaml.Testing.Resources;
-    using OmniXaml.Tests.Resources;
+    using Resources;
 
     public class InstructionTreeBuilderTests : GivenARuntimeTypeSource
     {

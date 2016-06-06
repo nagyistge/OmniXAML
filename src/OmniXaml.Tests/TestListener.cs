@@ -4,7 +4,7 @@ namespace OmniXaml.Tests
     using System.Collections;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using OmniXaml.Testing.Classes;
+    using Testing.Classes;
 
     internal class TestListener : IInstanceLifeCycleListener
     {

@@ -3,12 +3,11 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using OmniXaml.Testing.Classes;
-    using OmniXaml.Testing.Classes.WpfLikeModel;
-    using OmniXaml.Testing.Common;
+    using Testing.Classes;
+    using Testing.Classes.WpfLikeModel;
+    using Testing.Common;
     using ObjectAssembler;
-    using OmniXaml.Testing.Resources;
-    using OmniXaml.Tests.Resources;
+    using Resources;
     using TypeConversion;
     using Xunit;
 
@@ -283,12 +282,12 @@
         [Fact]
         public void MixedCollectionWithRootInstance()
         {
-            var root = new System.Collections.Generic.List<object>();
+            var root = new List<object>();
             var assembler = CreateSutForLoadingSpecificInstance(root);
             assembler.Process(source.MixedCollection);
             var result = assembler.Result;
-            Assert.IsType(typeof(System.Collections.Generic.List<object>), result);
-            var arrayList = (System.Collections.Generic.List<object>) result;
+            Assert.IsType(typeof(List<object>), result);
+            var arrayList = (List<object>) result;
             Assert.True(arrayList.Count > 0);
         }
 

@@ -4,13 +4,12 @@
     using System.IO;
     using System.Linq;
     using System.Xml;
-    using OmniXaml.Testing.Common;
+    using Testing.Common;
     using Xunit;
     using OmniXaml.Parsers.Parser;
     using OmniXaml.Parsers.ProtoParser;
-    using OmniXaml.Testing.Resources;
-    using OmniXaml.Tests.Resources;
-    using File = OmniXaml.Testing.Resources.File;
+    using Resources;
+    using File = Testing.Resources.File;
 
     public class FromXamlToInstructions : GivenARuntimeTypeSource
     {

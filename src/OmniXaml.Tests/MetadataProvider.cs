@@ -1,7 +1,7 @@
 ﻿namespace OmniXaml.Tests
 {
-    using OmniXaml.Testing.Classes;
-    using OmniXaml.Typing;
+    using Testing.Classes;
+    using Typing;
     using Xunit;
 
     public class MetadataProviderTests

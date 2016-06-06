@@ -1,13 +1,12 @@
 namespace OmniXaml.Tests
 {
     using System.Collections.Generic;
-    using OmniXaml.Testing.Classes;
-    using OmniXaml.Testing.Classes.WpfLikeModel;
-    using OmniXaml.Testing.Common;
-    using OmniXaml.ObjectAssembler;
-    using OmniXaml.Testing.Resources;
-    using OmniXaml.TypeConversion;
-    using OmniXaml.Tests.Resources;
+    using Testing.Classes;
+    using Testing.Classes.WpfLikeModel;
+    using Testing.Common;
+    using ObjectAssembler;
+    using TypeConversion;
+    using Resources;
     using Xunit;
 
     public class NameScopeTests : GivenARuntimeTypeSource

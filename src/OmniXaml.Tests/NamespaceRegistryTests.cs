@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Reflection;
     using Builder;
-    using OmniXaml.Testing.Classes;
+    using Testing.Classes;
     using Xunit;
     using Typing;
 

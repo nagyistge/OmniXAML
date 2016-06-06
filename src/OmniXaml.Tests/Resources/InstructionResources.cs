@@ -4,10 +4,10 @@ namespace OmniXaml.Tests.Resources
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using Builder;
-    using OmniXaml.Testing.Classes;
-    using OmniXaml.Testing.Classes.Another;
-    using OmniXaml.Testing.Classes.WpfLikeModel;
-    using OmniXaml.Testing.Common;
+    using Testing.Classes;
+    using Testing.Classes.Another;
+    using Testing.Classes.WpfLikeModel;
+    using Testing.Common;
     using Typing;
 
     public class InstructionResources
