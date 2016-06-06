@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0-beta-*",
+
+  "dependencies": {
+    "Glass.Core": "2.0.1-beta1",
+    "NETStandard.Library": "1.5.0-rc4-24126-00",
+    "Sprache.SuperJMN": "1.10.0.2",
+    "System.Linq": "4.1.0-rc4-24126-00",
+    "System.Linq.Expressions": "4.1.0-rc4-24126-00"
+  },
+
+  "frameworks": {
+    "netstandard1.5": {
+      "imports": "dnxcore50"
+    }
+  }
+}

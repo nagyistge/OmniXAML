@@ -1,6 +1,0 @@
-﻿<sysCol:ArrayList xmlns:sysCol="clr-namespace:System.Collections;assembly=mscorlib"
-                  xmlns="root">
-    <DummyClass />
-    <DummyClass />
-    <DummyClass />
-</sysCol:ArrayList>
