@@ -4,13 +4,20 @@ namespace OmniXaml.Tests.ObjectAssemblerTests
     using Testing.Classes;
     using Xunit;
 
-    public class Extensions : ObjectAssemblerTests
+    public class Extensions
     {
+        public Extensions()
+        {
+            Fixture = new ObjectAssemblerFixture();
+        }
+
+        public ObjectAssemblerFixture Fixture { get; set; }
+
         [Fact]
         public void ExtensionThatReturnsNull()
         {
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.ExtensionThatReturnsNull);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.ExtensionThatReturnsNull);
 
             var result = sut.Result;
             var property = ((DummyClass)result).SampleProperty;
@@ -22,8 +29,8 @@ namespace OmniXaml.Tests.ObjectAssemblerTests
         [Fact]
         public void ExtensionWithArgument()
         {
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.ExtensionWithArgument);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.ExtensionWithArgument);
 
             var result = sut.Result;
             var property = ((DummyClass)result).SampleProperty;
@@ -35,8 +42,8 @@ namespace OmniXaml.Tests.ObjectAssemblerTests
         [Fact]
         public void ExtensionWithNonStringArgument()
         {
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.ExtensionWithNonStringArgument);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.ExtensionWithNonStringArgument);
 
             var result = sut.Result;
             var property = ((DummyClass)result).Number;
@@ -48,8 +55,8 @@ namespace OmniXaml.Tests.ObjectAssemblerTests
         [Fact]
         public void ExtensionWithTwoArguments()
         {
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.ExtensionWithTwoArguments);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.ExtensionWithTwoArguments);
 
             var result = sut.Result;
             var property = ((DummyClass)result).SampleProperty;
@@ -61,8 +68,8 @@ namespace OmniXaml.Tests.ObjectAssemblerTests
         [Fact]
         public void CollectionAsRootWithManyElements()
         {
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.MixedCollection);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.MixedCollection);
             var result = sut.Result;
             Assert.IsType(typeof(ArrayList), result);
             var arrayList = (ArrayList)result;

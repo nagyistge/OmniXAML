@@ -7,19 +7,26 @@ namespace OmniXaml.Tests.ObjectAssemblerTests
     using Testing.Classes.WpfLikeModel;
     using Xunit;
 
-    public class Advanced : ObjectAssemblerTests
+    public class Advanced
     {
+        public Advanced()
+        {
+            Fixture = new ObjectAssemblerFixture();
+        }
+
+        public ObjectAssemblerFixture Fixture { get; set; }
+
         [Fact]
         public void AttemptToAssignItemsToNonCollectionMember()
         {
-            Assert.Throws<ParseException>(() => CreateSut().Process(Resources.AttemptToAssignItemsToNonCollectionMember));
+            Assert.Throws<ParseException>(() => Fixture.CreateObjectAssembler().Process(Fixture.Resources.AttemptToAssignItemsToNonCollectionMember));
         }
 
         [Fact]
         public void ChildIsAssociatedBeforeItsPropertiesAreSet()
         {
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.InstanceWithChildAndProperty);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.InstanceWithChildAndProperty);
             var result = (DummyClass) sut.Result;
 
             Assert.False(result.TitleWasSetBeforeBeingAssociated);
@@ -29,8 +36,8 @@ namespace OmniXaml.Tests.ObjectAssemblerTests
         public void CorrectInstanceSetupSequence()
         {
             var expectedSequence = new[] {SetupSequence.Begin, SetupSequence.AfterAssociatedToParent, SetupSequence.AfterSetProperties, SetupSequence.End};
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.InstanceWithChild);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.InstanceWithChild);
 
             var listener = (TestListener) sut.LifecycleListener;
             Assert.Equal(expectedSequence.ToList().AsReadOnly(), listener.InvocationOrder);
@@ -39,14 +46,14 @@ namespace OmniXaml.Tests.ObjectAssemblerTests
         [Fact]
         public void DirectContentForOneToMany()
         {
-            CreateSut().Process(Resources.DirectContentForOneToMany);
+            Fixture.CreateObjectAssembler().Process(Fixture.Resources.DirectContentForOneToMany);
         }
 
         [Fact]
         public void ExpandedAttachablePropertyAndItemBelow()
         {
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.ExpandedAttachablePropertyAndItemBelow);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.ExpandedAttachablePropertyAndItemBelow);
 
             var items = ((DummyClass) sut.Result).Items;
 
@@ -59,8 +66,8 @@ namespace OmniXaml.Tests.ObjectAssemblerTests
         [Fact]
         public void KeyDirective()
         {
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.KeyDirective);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.KeyDirective);
 
             var actual = sut.Result;
             Assert.IsType(typeof(DummyClass), actual);
@@ -71,8 +78,8 @@ namespace OmniXaml.Tests.ObjectAssemblerTests
         [Fact]
         public void ListBoxWithItemAndTextBlockNoNames()
         {
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.ListBoxWithItemAndTextBlockNoNames);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.ListBoxWithItemAndTextBlockNoNames);
 
             var w = (Window) sut.Result;
             var lb = (ListBox) w.Content;
@@ -85,8 +92,8 @@ namespace OmniXaml.Tests.ObjectAssemblerTests
         [Fact]
         public void MemberAfterInitalizationValue()
         {
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.MemberAfterInitalizationValue);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.MemberAfterInitalizationValue);
 
             var root = (RootObject) sut.Result;
             var str = root.Collection[0];
@@ -99,8 +106,8 @@ namespace OmniXaml.Tests.ObjectAssemblerTests
         [Fact]
         public void MemberWithIncompatibleTypes()
         {
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.MemberWithIncompatibleTypes);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.MemberWithIncompatibleTypes);
 
             var result = sut.Result;
             var property = ((DummyClass) result).Number;
@@ -112,8 +119,8 @@ namespace OmniXaml.Tests.ObjectAssemblerTests
         [Fact]
         public void PropertyShouldBeAssignedBeforeChildIsAssociatedToItsParent()
         {
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.ParentShouldReceiveInitializedChild);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.ParentShouldReceiveInitializedChild);
             var parent = (SpyingParent) sut.Result;
             Assert.True(parent.ChildHadNamePriorToBeingAssigned);
         }      
@@ -122,8 +129,8 @@ namespace OmniXaml.Tests.ObjectAssemblerTests
         public void RootInstanceWithAttachableMember()
         {
             var root = new DummyClass();
-            var sut = CreateSutForLoadingSpecificInstance(root);
-            sut.Process(Resources.RootInstanceWithAttachableMember);
+            var sut = Fixture.CreateSutForLoadingSpecificInstance(root);
+            sut.Process(Fixture.Resources.RootInstanceWithAttachableMember);
             var result = sut.Result;
             var attachedProperty = Container.GetProperty(result);
             Assert.Equal("Value", attachedProperty);
@@ -132,10 +139,10 @@ namespace OmniXaml.Tests.ObjectAssemblerTests
         [Fact]
         public void TopDownContainsOuterObject()
         {
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.InstanceWithChild);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.InstanceWithChild);
 
-            var dummyClassXamlType = RuntimeTypeSource.GetByType(typeof(DummyClass));
+            var dummyClassXamlType = Fixture.RuntimeTypeSource.GetByType(typeof(DummyClass));
             var lastInstance = sut.TopDownValueContext.GetLastInstance(dummyClassXamlType);
 
             Assert.IsType(typeof(DummyClass), lastInstance);
@@ -144,7 +151,7 @@ namespace OmniXaml.Tests.ObjectAssemblerTests
         [Fact]
         public void TwoChildrenWithNoRoot_ShouldThrow()
         {
-            Assert.Throws<ParseException>(() => CreateSut().Process(Resources.TwoRoots));
+            Assert.Throws<ParseException>(() => Fixture.CreateObjectAssembler().Process(Fixture.Resources.TwoRoots));
         }      
     }
 }

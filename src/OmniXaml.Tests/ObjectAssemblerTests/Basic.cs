@@ -3,13 +3,20 @@
     using Testing.Classes;
     using Xunit;
 
-    public class Basic : ObjectAssemblerTests
+    public class Basic
     {
+        public Basic()
+        {
+            Fixture = new ObjectAssemblerFixture();
+        }
+
+        public ObjectAssemblerFixture Fixture { get; set; }
+
         [Fact]
         public void ObjectWithChild()
         {
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.ObjectWithChild);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.ObjectWithChild);
 
             var result = sut.Result;
             var property = ((DummyClass)result).Child;
@@ -21,8 +28,8 @@
         [Fact]
         public void ObjectWithEnumMember()
         {
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.ObjectWithEnumMember);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.ObjectWithEnumMember);
 
             var result = sut.Result;
             var property = ((DummyClass)result).EnumProperty;
@@ -34,8 +41,8 @@
         [Fact]
         public void ObjectWithMember()
         {
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.ObjectWithMember);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.ObjectWithMember);
 
             var result = sut.Result;
             var property = ((DummyClass)result).SampleProperty;
@@ -47,8 +54,8 @@
         [Fact]
         public void ObjectWithNullableEnumProperty()
         {
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.ObjectWithNullableEnumProperty);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.ObjectWithNullableEnumProperty);
 
             var result = sut.Result;
             var property = ((DummyClass)result).EnumProperty;
@@ -60,8 +67,8 @@
         [Fact]
         public void ObjectWithTwoMembers()
         {
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.ObjectWithTwoMembers);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.ObjectWithTwoMembers);
 
             var result = sut.Result;
             var property1 = ((DummyClass)result).SampleProperty;
@@ -75,8 +82,8 @@
         [Fact]
         public void OneObject()
         {
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.OneObject);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.OneObject);
 
             var result = sut.Result;
 
@@ -88,8 +95,8 @@
         {
             var sysNs = new NamespaceDeclaration("clr-namespace:System;assembly=mscorlib", "sys");
 
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.GetString(sysNs));
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.GetString(sysNs));
 
             var actual = sut.Result;
             Assert.IsType(typeof(string), actual);

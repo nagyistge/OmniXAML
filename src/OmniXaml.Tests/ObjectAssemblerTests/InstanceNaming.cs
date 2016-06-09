@@ -5,13 +5,20 @@
     using Testing.Classes.WpfLikeModel;
     using Xunit;
 
-    public class InstanceNaming : ObjectAssemblerTests
+    public class InstanceNaming 
     {
+        public InstanceNaming()
+        {
+            Fixture = new ObjectAssemblerFixture();
+        }
+
+        private ObjectAssemblerFixture Fixture { get; }
+
         [Fact]
         public void NamedObject_HasCorrectName()
         {
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.NamedObject);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.NamedObject);
             var result = sut.Result;
             var tb = (TextBlock)result;
 
@@ -21,8 +28,8 @@
         [Fact]
         public void TwoNestedNamedObjects_HaveCorrectNames()
         {
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.TwoNestedNamedObjects);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.TwoNestedNamedObjects);
             var result = sut.Result;
             var lbi = (ListBoxItem)result;
             var textBlock = (TextBlock)lbi.Content;
@@ -34,8 +41,8 @@
         [Fact]
         public void ListBoxWithItemAndTextBlockWithNames_HaveCorrectNames()
         {
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.ListBoxWithItemAndTextBlockWithNames);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.ListBoxWithItemAndTextBlockWithNames);
 
             var w = (Window)sut.Result;
             var lb = (ListBox)w.Content;

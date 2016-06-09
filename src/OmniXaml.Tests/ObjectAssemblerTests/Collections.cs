@@ -6,13 +6,20 @@
     using Testing.Classes;
     using Xunit;
 
-    public class Collections : ObjectAssemblerTests
+    public class Collections
     {
+        public Collections()
+        {
+            Fixture = new ObjectAssemblerFixture();
+        }
+
+        public ObjectAssemblerFixture Fixture { get; set; }
+
         [Fact]
         public void WithCollection()
         {
-            var sut = CreateSut();
-            sut.Process(Resources.CollectionWithMoreThanOneItem);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.CollectionWithMoreThanOneItem);
 
             var result = sut.Result;
             var children = ((DummyClass)result).Items;
@@ -26,8 +33,8 @@
         public void MixedCollectionWithRootInstance()
         {
             var root = new List<object>();
-            var assembler = CreateSutForLoadingSpecificInstance(root);
-            assembler.Process(Resources.MixedCollection);
+            var assembler = Fixture.CreateSutForLoadingSpecificInstance(root);
+            assembler.Process(Fixture.Resources.MixedCollection);
             var result = assembler.Result;
             Assert.IsType(typeof(List<object>), result);
             var arrayList = (List<object>)result;
@@ -37,8 +44,8 @@
         [Fact]
         public void PureCollection()
         {
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.PureCollection);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.PureCollection);
             var actual = (ArrayList)sut.Result;
             Assert.NotEmpty(actual);
         }
@@ -46,8 +53,8 @@
         [Fact]
         public void WithCollectionAndInnerAttribute()
         {
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.WithCollectionAndInnerAttribute);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.WithCollectionAndInnerAttribute);
 
             var result = sut.Result;
             var children = ((DummyClass)result).Items;
@@ -62,8 +69,8 @@
         [Fact]
         public void ExplicitCollection_ShouldReplaceCollectionInstance()
         {
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.ExplicitCollection);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.ExplicitCollection);
             var actual = (RootObject)sut.Result;
 
             Assert.True(actual.CollectionWasReplaced);
@@ -72,8 +79,8 @@
         [Fact]
         public void ImplicitCollection_ShouldHaveItems()
         {
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.ImplicitCollection);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.ImplicitCollection);
             var actual = (RootObject)sut.Result;
 
             var customCollection = actual.Collection;
@@ -84,8 +91,8 @@
         [Fact]
         public void ImplicitCollection_ShouldKeepSameCollectionInstance()
         {
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.ImplicitCollection);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.ImplicitCollection);
             var actual = (RootObject)sut.Result;
 
             Assert.False(actual.CollectionWasReplaced);
@@ -94,8 +101,8 @@
         [Fact]
         public void ExplicitCollection_ShouldHaveItems()
         {
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.ExplicitCollection);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.ExplicitCollection);
             var actual = (RootObject)sut.Result;
 
             var customCollection = actual.Collection;
@@ -106,16 +113,16 @@
         [Fact]
         public void CustomCollection()
         {
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.CustomCollection);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.CustomCollection);
             Assert.NotEmpty((IEnumerable)sut.Result);
         }
 
         [Fact]
         public void CollectionWithInnerCollection()
         {
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.CollectionWithInnerCollection);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.CollectionWithInnerCollection);
 
             var result = sut.Result;
             var children = ((DummyClass)result).Items;
@@ -131,8 +138,8 @@
         [Fact]
         public void AttachableMemberThatIsCollection()
         {
-            IObjectAssembler sut = CreateSut();
-            sut.Process(Resources.AttachableMemberThatIsCollection);
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.AttachableMemberThatIsCollection);
             var instance = sut.Result;
             var col = Container.GetCollection(instance);
 

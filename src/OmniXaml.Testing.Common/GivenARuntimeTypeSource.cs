@@ -6,7 +6,7 @@ namespace OmniXaml.Testing.Common
     using TypeConversion;
     using Typing;
 
-    public class GivenARuntimeTypeSource
+    public class GivenARuntimeTypeSource : IResourceBuilder
     {
         protected GivenARuntimeTypeSource()
         {
@@ -15,7 +15,7 @@ namespace OmniXaml.Testing.Common
             P = new ProtoInstructionBuilder(RuntimeTypeSource);
         }
 
-        protected TestRuntimeTypeSource RuntimeTypeSource { get; }
+        public TestRuntimeTypeSource RuntimeTypeSource { get; }
         public NamespaceDeclaration RootNs { get; } = new NamespaceDeclaration("root", string.Empty);
         public NamespaceDeclaration AnotherNs { get; } = new NamespaceDeclaration("another", "a");
         public NamespaceDeclaration SpecialNs { get; } = new NamespaceDeclaration(CoreTypes.SpecialNamespace, "x");
