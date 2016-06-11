@@ -1,6 +1,9 @@
 namespace OmniXaml.Tests.ObjectAssemblerTests.New
 {
+    using System.Collections.Generic;
+    using ObjectAssembler;
     using Testing.Classes;
+    using TypeConversion;
     using Xunit;
 
     public class BasicNew
@@ -39,7 +42,7 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
         }
 
         [Fact]
-        public void ObjectWithMember()
+        public void ObjectWithStringMember()
         {
             var sut = Fixture.CreateObjectAssembler();
             sut.Process(Fixture.Resources.ObjectWithMember);
@@ -108,7 +111,9 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
     {
         public override IObjectAssembler CreateObjectAssembler()
         {
-            return new PureObjectAssembler();
+            var topDownValueContext = new TopDownValueContext();
+            var valueConnectionContext = new ValueContext(RuntimeTypeSource, topDownValueContext, new Dictionary<string, object>());
+            return new PureObjectAssembler(valueConnectionContext);
         }
     }
 }

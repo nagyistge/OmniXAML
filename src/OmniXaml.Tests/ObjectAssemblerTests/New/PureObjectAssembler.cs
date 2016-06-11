@@ -4,9 +4,18 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
     using Glass.Core;
     using ObjectAssembler;
     using ObjectAssembler.Commands;
+    using TypeConversion;
+    using Typing;
 
     public class PureObjectAssembler : IObjectAssembler
     {
+        private readonly IValueContext valueContext;
+
+        public PureObjectAssembler(IValueContext valueContext)
+        {
+            this.valueContext = valueContext;
+        }
+
         private object result;
         private readonly StackingLinkedList<Workbench> workbenches = new StackingLinkedList<Workbench>();
 
@@ -19,14 +28,19 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
         {
             if (instruction.InstructionType == InstructionType.StartObject)
             {
-                var workbench = new Workbench();
+                var workbench = new Workbench(valueContext);
                 workbench.Instance = instruction.XamlType.CreateInstance(null);
                 workbenches.Push(workbench);
             }
 
             if (instruction.InstructionType == InstructionType.StartMember)
             {
-                result = instruction.XamlType.CreateInstance(null);
+                workbenches.CurrentValue.Member = instruction.Member;
+            }
+
+            if (instruction.InstructionType == InstructionType.Value)
+            {
+                workbenches.CurrentValue.SetMemberValue(instruction.Value);
             }
         }
 
@@ -38,6 +52,20 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
 
     internal class Workbench
     {
+        private readonly IValueContext valueContext;
+
+        public Workbench(IValueContext valueContext)
+        {
+            this.valueContext = valueContext;
+        }
+
         public object Instance { get; set; }
+        public MemberBase Member { get; set; }
+
+        public void SetMemberValue(object value)
+        {
+            var mutable = Member as MutableMember;
+            mutable.SetValue(Instance, value, valueContext);
+        }
     }
 }
