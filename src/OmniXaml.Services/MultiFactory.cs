@@ -18,18 +18,18 @@ namespace OmniXaml.Services
             return GetFactory(type).Create(type, args);
         }
 
-        private ITypeFactory GetFactory(Type type)
+        private ITypeFactory GetFactory(Type type, params object[] args)
         {
             var factory = (from reg in factoryRegistrations
-                where reg.IsApplicable(type) && reg.Factory.CanCreate(type)
+                where reg.IsApplicable(type) && reg.Factory.CanCreate(type, args)
                 select reg.Factory).FirstOrDefault();
 
             return factory;
         }
 
-        public bool CanCreate(Type type)
+        public bool CanCreate(Type type, params object[] args)
         {
-            return GetFactory(type) != null;
+            return GetFactory(type, args) != null;
         }
     }
 }

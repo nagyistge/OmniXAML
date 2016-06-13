@@ -4,10 +4,8 @@
 
     public interface ITypeFactory
     {
-        // ReSharper disable once UnusedMember.Global
-        // ReSharper disable once UnusedMember.Global
+
         object Create(Type type, params object[] args);
-        // ReSharper disable once UnusedMember.Global
-        bool CanCreate(Type type);        
+        bool CanCreate(Type type, params object[] args);
     }
 }

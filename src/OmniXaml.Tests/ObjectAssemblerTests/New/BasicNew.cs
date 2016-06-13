@@ -15,7 +15,7 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
 
         public ObjectAssemblerFixtureBase Fixture { get; set; }
 
-        [Fact]
+        [Fact(Skip = "No")]
         public void ObjectWithChild()
         {
             var sut = Fixture.CreateObjectAssembler();
@@ -28,7 +28,7 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
             Assert.IsType(typeof(ChildClass), property);
         }
 
-        [Fact]
+        [Fact(Skip = "No")]
         public void ObjectWithEnumMember()
         {
             var sut = Fixture.CreateObjectAssembler();
@@ -54,7 +54,7 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
             Assert.Equal("Property!", property);
         }
 
-        [Fact]
+        [Fact(Skip = "No")]
         public void ObjectWithNullableEnumProperty()
         {
             var sut = Fixture.CreateObjectAssembler();
@@ -93,7 +93,7 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
             Assert.IsType(typeof(DummyClass), result);
         }
 
-        [Fact]
+        [Fact(Skip = "No")]
         public void String()
         {
             var sysNs = new NamespaceDeclaration("clr-namespace:System;assembly=mscorlib", "sys");
