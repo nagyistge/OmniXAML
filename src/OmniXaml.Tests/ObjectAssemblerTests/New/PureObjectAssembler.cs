@@ -5,7 +5,6 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
     using ObjectAssembler;
     using ObjectAssembler.Commands;
     using TypeConversion;
-    using Typing;
 
     public class PureObjectAssembler : IObjectAssembler
     {
@@ -33,6 +32,13 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
                 workbenches.Push(workbench);
             }
 
+            if (instruction.InstructionType == InstructionType.EndMember)
+            {
+                var instanceToAssign = workbenches.CurrentValue.Instance;
+                workbenches.Pop();
+                workbenches.CurrentValue.SetMemberValue(instanceToAssign);
+            }
+
             if (instruction.InstructionType == InstructionType.StartMember)
             {
                 workbenches.CurrentValue.Member = instruction.Member;
@@ -40,32 +46,15 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
 
             if (instruction.InstructionType == InstructionType.Value)
             {
-                workbenches.CurrentValue.SetMemberValue(instruction.Value);
+                var workbench = new Workbench(valueContext);
+                workbench.Instance = instruction.Value;
+                workbenches.Push(workbench);
             }
         }
 
         public void OverrideInstance(object instance)
         {
             throw new NotImplementedException();
-        }
-    }
-
-    internal class Workbench
-    {
-        private readonly IValueContext valueContext;
-
-        public Workbench(IValueContext valueContext)
-        {
-            this.valueContext = valueContext;
-        }
-
-        public object Instance { get; set; }
-        public MemberBase Member { get; set; }
-
-        public void SetMemberValue(object value)
-        {
-            var mutable = Member as MutableMember;
-            mutable.SetValue(Instance, value, valueContext);
         }
     }
 }

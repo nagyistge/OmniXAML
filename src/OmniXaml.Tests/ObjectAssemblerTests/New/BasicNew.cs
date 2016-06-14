@@ -1,9 +1,6 @@
 namespace OmniXaml.Tests.ObjectAssemblerTests.New
 {
-    using System.Collections.Generic;
-    using ObjectAssembler;
     using Testing.Classes;
-    using TypeConversion;
     using Xunit;
 
     public class BasicNew
@@ -15,7 +12,7 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
 
         public ObjectAssemblerFixtureBase Fixture { get; set; }
 
-        [Fact(Skip = "No")]
+        [Fact]
         public void ObjectWithChild()
         {
             var sut = Fixture.CreateObjectAssembler();
@@ -93,6 +90,17 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
             Assert.IsType(typeof(DummyClass), result);
         }
 
+        [Fact]
+        public void Collection()
+        {
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.CollectionWithMoreThanOneItemNewAge);
+
+            var result = sut.Result;
+
+            Assert.IsType(typeof(DummyClass), result);
+        }
+
         [Fact(Skip = "No")]
         public void String()
         {
@@ -104,16 +112,6 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
             var actual = sut.Result;
             Assert.IsType(typeof(string), actual);
             Assert.Equal("Text", actual);
-        }
-    }
-
-    public class ObjectAssemblerFixtureNew : ObjectAssemblerFixtureBase
-    {
-        public override IObjectAssembler CreateObjectAssembler()
-        {
-            var topDownValueContext = new TopDownValueContext();
-            var valueConnectionContext = new ValueContext(RuntimeTypeSource, topDownValueContext, new Dictionary<string, object>());
-            return new PureObjectAssembler(valueConnectionContext);
         }
     }
 }

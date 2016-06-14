@@ -405,6 +405,29 @@ namespace OmniXaml.Tests.Resources
             }
         }
 
+        public IEnumerable<Instruction> CollectionWithMoreThanOneItemNewAge
+        {
+            get
+            {
+                return new List<Instruction>
+                {
+                    X.NamespacePrefixDeclaration(RootNs),
+                    X.StartObject<DummyClass>(),
+                    X.StartMember<DummyClass>(d => d.Items),
+                    X.Items(),
+                    X.StartObject<Item>(),
+                    X.EndObject(),
+                    X.StartObject<Item>(),
+                    X.EndObject(),
+                    X.StartObject<Item>(),
+                    X.EndObject(),
+                    X.EndMember(),
+                    X.EndMember(),
+                    X.EndObject(),
+                };
+            }
+        }
+
         public IEnumerable<Instruction> NestedChildWithContentProperty
         {
             get
