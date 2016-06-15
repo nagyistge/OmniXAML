@@ -90,16 +90,6 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
             Assert.IsType(typeof(DummyClass), result);
         }
 
-        [Fact]
-        public void Collection()
-        {
-            var sut = Fixture.CreateObjectAssembler();
-            sut.Process(Fixture.Resources.CollectionWithMoreThanOneItemNewAge);
-
-            var result = sut.Result;
-
-            Assert.IsType(typeof(DummyClass), result);
-        }
 
         [Fact(Skip = "No")]
         public void String()

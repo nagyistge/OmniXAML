@@ -1,5 +1,6 @@
 namespace OmniXaml.Tests.ObjectAssemblerTests.New
 {
+    using System.Collections;
     using TypeConversion;
     using Typing;
 
@@ -14,6 +15,8 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
 
         public object Instance { get; set; }
         public MemberBase Member { get; set; }
+        public ArrayList BufferedChildren { get; set; } = new ArrayList();
+        public bool Flag { get; set; }
 
         public void SetMemberValue(object value)
         {
