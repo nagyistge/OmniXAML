@@ -34,12 +34,7 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
                     break;
                 case InstructionType.EndMember:
                     var instanceToAssign = workbenches.CurrentValue.Instance;
-
-                    if (!workbenches.CurrentValue.Flag)
-                    {
-                        workbenches.Pop();
-                    }
-                    
+                    workbenches.Pop();
                     workbenches.CurrentValue.SetMemberValue(instanceToAssign);
                     break;
                 case InstructionType.StartMember:
@@ -59,12 +54,12 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
                     {
                         if (Equals(workbenches.PreviousValue.Member, CoreTypes.Items))
                         {
-                            workbenches.PreviousValue.BufferedChildren.Add(workbenches.CurrentValue.Instance);                            
-                        }                       
+                            workbenches.PreviousValue.BufferedChildren.Add(workbenches.CurrentValue.Instance);
+                        }
                     }
 
                     result = workbenches.CurrentValue.Instance;
-                    workbenches.Pop();
+                    //workbenches.Pop();
 
                     break;
             }
