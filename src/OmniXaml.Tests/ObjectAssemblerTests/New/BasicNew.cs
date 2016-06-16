@@ -25,7 +25,7 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
             Assert.IsType(typeof(ChildClass), property);
         }
 
-        [Fact(Skip = "No")]
+        [Fact]
         public void ObjectWithEnumMember()
         {
             var sut = Fixture.CreateObjectAssembler();
@@ -51,7 +51,7 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
             Assert.Equal("Property!", property);
         }
 
-        [Fact(Skip = "No")]
+        [Fact]
         public void ObjectWithNullableEnumProperty()
         {
             var sut = Fixture.CreateObjectAssembler();

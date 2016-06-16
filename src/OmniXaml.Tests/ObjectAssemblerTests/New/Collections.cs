@@ -19,8 +19,11 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
             sut.Process(Fixture.Resources.CollectionWithMoreThanOneItemNewAge);
 
             var result = sut.Result;
+            var children = ((DummyClass)result).Items;
 
             Assert.IsType(typeof(DummyClass), result);
+            Assert.Equal(3, children.Count);
+            Assert.All(children, child => Assert.IsType(typeof(Item), child));
         }
     }
 }

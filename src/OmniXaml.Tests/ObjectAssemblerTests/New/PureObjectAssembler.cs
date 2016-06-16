@@ -1,6 +1,7 @@
 namespace OmniXaml.Tests.ObjectAssemblerTests.New
 {
     using System;
+    using System.Collections;
     using Glass.Core;
     using ObjectAssembler;
     using ObjectAssembler.Commands;
@@ -32,18 +33,36 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
                     PushWorkbenchAndSetInstance(instruction.XamlType.CreateInstance(null));
                     break;
                 case InstructionType.EndMember:
-                    
+
                     if (!workbenches.CurrentValue.Flag)
                     {
-                        var instanceToAssign = workbenches.CurrentValue.Instance;
+                        object instanceToAssign;
+                        if (Equals(workbenches.CurrentValue.Member, CoreTypes.Items))
+                        {
+                            instanceToAssign = CreateCollection();
+                        }
+                        else
+                        {
+                            instanceToAssign = workbenches.CurrentValue.Instance;
+                        }
+
                         if (Equals(workbenches.CurrentValue.Member, CoreTypes.Items))
                         {
                             workbenches.PreviousValue.Flag = true;
                         }
                         workbenches.Pop();
-                        workbenches.CurrentValue.SetMemberValue(instanceToAssign);
+
+                        object converted;
+                        if (CommonValueConversion.TryConvert(instanceToAssign, workbenches.CurrentValue.Member.XamlType, valueContext, out converted))
+                        {
+                            workbenches.CurrentValue.SetMemberValue(converted);
+                        }
+                        else
+                        {
+                            workbenches.CurrentValue.SetMemberValue(instanceToAssign);
+                        }
                     }
-                    
+
                     break;
                 case InstructionType.StartMember:
                     if (Equals(instruction.Member, CoreTypes.Items))
@@ -67,12 +86,23 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
                         }
                     }
 
-                    
+
                     result = workbenches.CurrentValue.Instance;
-                    
+
 
                     break;
             }
+        }
+
+        private IList CreateCollection()
+        {
+            var collectionType = workbenches.PreviousValue.Member.XamlType;
+            var collection = (IList)collectionType.CreateInstance();
+            foreach (var bufferedChild in workbenches.CurrentValue.BufferedChildren)
+            {
+                collection.Add(bufferedChild);
+            }
+            return collection;
         }
 
         private void PushWorkbenchAndSetInstance(object instance)

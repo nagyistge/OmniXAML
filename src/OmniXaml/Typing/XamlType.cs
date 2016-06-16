@@ -129,7 +129,7 @@ namespace OmniXaml.Typing
             return "XamlType: " + Name;
         }
 
-        public object CreateInstance(object[] parameters)
+        public object CreateInstance(params object[] parameters)
         {
             return TypeFactory.Create(UnderlyingType, parameters);
         }
