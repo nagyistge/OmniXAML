@@ -30,12 +30,20 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
             {
                 case InstructionType.StartObject:
                     PushWorkbenchAndSetInstance(instruction.XamlType.CreateInstance(null));
-                    workbenches.CurrentValue.Flag = true;
                     break;
                 case InstructionType.EndMember:
-                    var instanceToAssign = workbenches.CurrentValue.Instance;
-                    workbenches.Pop();
-                    workbenches.CurrentValue.SetMemberValue(instanceToAssign);
+                    
+                    if (!workbenches.CurrentValue.Flag)
+                    {
+                        var instanceToAssign = workbenches.CurrentValue.Instance;
+                        if (Equals(workbenches.CurrentValue.Member, CoreTypes.Items))
+                        {
+                            workbenches.PreviousValue.Flag = true;
+                        }
+                        workbenches.Pop();
+                        workbenches.CurrentValue.SetMemberValue(instanceToAssign);
+                    }
+                    
                     break;
                 case InstructionType.StartMember:
                     if (Equals(instruction.Member, CoreTypes.Items))
@@ -55,11 +63,13 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
                         if (Equals(workbenches.PreviousValue.Member, CoreTypes.Items))
                         {
                             workbenches.PreviousValue.BufferedChildren.Add(workbenches.CurrentValue.Instance);
+                            workbenches.Pop();
                         }
                     }
 
+                    
                     result = workbenches.CurrentValue.Instance;
-                    //workbenches.Pop();
+                    
 
                     break;
             }
