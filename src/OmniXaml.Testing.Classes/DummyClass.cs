@@ -1,6 +1,7 @@
 namespace OmniXaml.Testing.Classes
 {
     using System.Collections.Generic;
+    using System.Collections.Immutable;
     using System.Collections.ObjectModel;
     using Another;
     using Attributes;
@@ -41,6 +42,7 @@ namespace OmniXaml.Testing.Classes
         public SomeEnum? NullableEnumProperty { get; set; }
 
         public bool TitleWasSetBeforeBeingAssociated { get; set; }
+        public ImmutableList<Item> ImmutableItems { get; set; }
     }
 
     public enum SomeEnum

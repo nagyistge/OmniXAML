@@ -2,6 +2,10 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
 {
     using System;
     using System.Collections;
+    using System.Collections.Generic;
+    using System.Collections.Immutable;
+    using System.Linq;
+    using System.Reflection;
     using Glass.Core;
     using ObjectAssembler;
     using ObjectAssembler.Commands;
@@ -97,12 +101,57 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
         private IList CreateCollection()
         {
             var collectionType = workbenches.PreviousValue.Member.XamlType;
-            var collection = (IList)collectionType.CreateInstance();
-            foreach (var bufferedChild in workbenches.CurrentValue.BufferedChildren)
+
+            if (!IsImmutable(collectionType))
             {
-                collection.Add(bufferedChild);
+                var collection = (IList) collectionType.CreateInstance();
+                foreach (var bufferedChild in workbenches.CurrentValue.BufferedChildren)
+                {
+                    collection.Add(bufferedChild);
+                }
+                return collection;
             }
-            return collection;
+            else
+            {
+                var underlyingType = workbenches.PreviousValue.Member.XamlType.UnderlyingType.GetTypeInfo().GetGenericArguments().First();
+
+                return (IList) workbenches.CurrentValue.BufferedChildren.AsImmutable(underlyingType);
+            }            
+        }
+
+        private object CreateImmutableList(XamlType collectionType)
+        {
+            var field = collectionType.UnderlyingType.GetTypeInfo().GetField("Empty");
+            var method = collectionType.UnderlyingType.GetTypeInfo().GetMethod("AddRange");
+            
+            var value = field.GetValue(null);
+            dynamic bufferedChildren = workbenches.CurrentValue.BufferedChildren;
+            var makeGenericType = typeof(IEnumerable<>).MakeGenericType(collectionType.UnderlyingType.GetGenericArguments().First());
+            var a = Cast(bufferedChildren, makeGenericType);
+            return method.Invoke(value, new object[]{ a });
+        }
+        
+        public static dynamic Cast(dynamic obj, Type castTo)
+        {
+            return Convert.ChangeType(obj, castTo);
+        }
+
+        private bool IsImmutable(XamlType collectionType)
+        {
+            var underlyingType = collectionType.UnderlyingType;
+            if (underlyingType == null)
+                return false;
+
+            var ti = underlyingType.GetTypeInfo();
+            if (!ti.IsGenericType || ti.Assembly.GetName().Name != "System.Collections.Immutable")
+                return false;
+
+            var typeDef = ti.GetGenericTypeDefinition();
+            var name = typeDef.FullName;
+            if (!name.StartsWith("System.Collections.Immutable.Immutable", StringComparison.Ordinal))
+                return false;
+
+            return name.EndsWith("`1", StringComparison.Ordinal) || name.EndsWith("`2", StringComparison.Ordinal);
         }
 
         private void PushWorkbenchAndSetInstance(object instance)

@@ -428,6 +428,29 @@ namespace OmniXaml.Tests.Resources
             }
         }
 
+        public IEnumerable<Instruction> ImmutableCollectionWithMoreThanOneItem
+        {
+            get
+            {
+                return new List<Instruction>
+                {
+                    X.NamespacePrefixDeclaration(RootNs),
+                    X.StartObject<DummyClass>(),
+                    X.StartMember<DummyClass>(d => d.ImmutableItems),
+                    X.Items(),
+                    X.StartObject<Item>(),
+                    X.EndObject(),
+                    X.StartObject<Item>(),
+                    X.EndObject(),
+                    X.StartObject<Item>(),
+                    X.EndObject(),
+                    X.EndMember(),
+                    X.EndMember(),
+                    X.EndObject(),
+                };
+            }
+        }
+
         public IEnumerable<Instruction> NestedChildWithContentProperty
         {
             get

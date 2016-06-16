@@ -3,7 +3,8 @@
 
   "dependencies": {
     "NETStandard.Library": "1.5.0-rc4-24126-00",
-    "OmniXaml": "1.0.0-*"
+    "OmniXaml": "1.0.0-*",
+    "System.Collections.Immutable": "1.2.0"
   },
 
   "frameworks": {
