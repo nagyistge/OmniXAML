@@ -8,7 +8,7 @@
     "OmniXaml.Services": "1.0.0-*",
     "Glass.Core": "2.0.1-beta1",
     "dotnet-test-xunit": "1.0.0-rc2-build10025",
-    "System.Collections.NonGeneric": "4.0.1-rc4-24205-04"
+    "System.Collections.NonGeneric": "4.0.1"
   },
   "frameworks": {
     "netcoreapp1.0": {
