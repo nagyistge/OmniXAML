@@ -10,7 +10,7 @@
             Fixture = new ObjectAssemblerFixture();
         }
 
-        public ObjectAssemblerFixture Fixture { get; set; }
+        public ObjectAssemblerFixtureBase Fixture { get; set; }
 
         [Fact]
         public void ObjectWithChild()
@@ -88,19 +88,6 @@
             var result = sut.Result;
 
             Assert.IsType(typeof(DummyClass), result);
-        }
-
-        [Fact]
-        public void String()
-        {
-            var sysNs = new NamespaceDeclaration("clr-namespace:System;assembly=mscorlib", "sys");
-
-            var sut = Fixture.CreateObjectAssembler();
-            sut.Process(Fixture.Resources.GetString(sysNs));
-
-            var actual = sut.Result;
-            Assert.IsType(typeof(string), actual);
-            Assert.Equal("Text", actual);
-        }
+        }       
     }
 }

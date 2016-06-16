@@ -1,9 +1,7 @@
-namespace OmniXaml.Tests.ObjectAssemblerTests.New
+namespace OmniXaml.Pure
 {
     using System;
     using System.Collections;
-    using System.Collections.Generic;
-    using System.Collections.Immutable;
     using System.Linq;
     using System.Reflection;
     using Glass.Core;
@@ -119,24 +117,7 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
             }            
         }
 
-        private object CreateImmutableList(XamlType collectionType)
-        {
-            var field = collectionType.UnderlyingType.GetTypeInfo().GetField("Empty");
-            var method = collectionType.UnderlyingType.GetTypeInfo().GetMethod("AddRange");
-            
-            var value = field.GetValue(null);
-            dynamic bufferedChildren = workbenches.CurrentValue.BufferedChildren;
-            var makeGenericType = typeof(IEnumerable<>).MakeGenericType(collectionType.UnderlyingType.GetGenericArguments().First());
-            var a = Cast(bufferedChildren, makeGenericType);
-            return method.Invoke(value, new object[]{ a });
-        }
-        
-        public static dynamic Cast(dynamic obj, Type castTo)
-        {
-            return Convert.ChangeType(obj, castTo);
-        }
-
-        private bool IsImmutable(XamlType collectionType)
+        private static bool IsImmutable(XamlType collectionType)
         {
             var underlyingType = collectionType.UnderlyingType;
             if (underlyingType == null)

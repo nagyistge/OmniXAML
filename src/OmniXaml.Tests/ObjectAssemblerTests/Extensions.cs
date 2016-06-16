@@ -11,7 +11,7 @@ namespace OmniXaml.Tests.ObjectAssemblerTests
             Fixture = new ObjectAssemblerFixture();
         }
 
-        public ObjectAssemblerFixture Fixture { get; set; }
+        protected ObjectAssemblerFixtureBase Fixture { get; set; }
 
         [Fact]
         public void ExtensionThatReturnsNull()

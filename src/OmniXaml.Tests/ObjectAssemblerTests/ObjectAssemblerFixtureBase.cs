@@ -14,11 +14,9 @@ namespace OmniXaml.Tests.ObjectAssemblerTests
         {
             RuntimeTypeSource = new TestRuntimeTypeSource();
             X = new XamlInstructionBuilder(RuntimeTypeSource);
-            P = new ProtoInstructionBuilder(RuntimeTypeSource);
-            Resources = new InstructionResources(this);
+            P = new ProtoInstructionBuilder(RuntimeTypeSource);            
         }
 
-        public InstructionResources Resources { get; set; }
         public NamespaceDeclaration RootNs { get; } = new NamespaceDeclaration("root", string.Empty);
         public NamespaceDeclaration AnotherNs { get; } = new NamespaceDeclaration("another", "a");
         public NamespaceDeclaration SpecialNs { get; } = new NamespaceDeclaration(CoreTypes.SpecialNamespace, "x");
@@ -27,6 +25,7 @@ namespace OmniXaml.Tests.ObjectAssemblerTests
         public TestRuntimeTypeSource RuntimeTypeSource { get; set; }
 
         public abstract IObjectAssembler CreateObjectAssembler();
+        public abstract IInstructionResources Resources { get; }
 
         public IObjectAssembler CreateSutForLoadingSpecificInstance(object instance)
         {

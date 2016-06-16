@@ -12,7 +12,7 @@
             Fixture = new ObjectAssemblerFixture();
         }
 
-        private ObjectAssemblerFixture Fixture { get; }
+        protected ObjectAssemblerFixtureBase Fixture { get; set; }
 
         [Fact]
         public void NamedObject_HasCorrectName()

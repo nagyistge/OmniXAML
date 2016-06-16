@@ -13,7 +13,7 @@
             Fixture = new ObjectAssemblerFixture();
         }
 
-        public ObjectAssemblerFixture Fixture { get; set; }
+        public ObjectAssemblerFixtureBase Fixture { get; set; }
 
         [Fact]
         public void WithCollection()
@@ -41,14 +41,7 @@
             Assert.True(arrayList.Count > 0);
         }
 
-        [Fact]
-        public void PureCollection()
-        {
-            var sut = Fixture.CreateObjectAssembler();
-            sut.Process(Fixture.Resources.PureCollection);
-            var actual = (ArrayList)sut.Result;
-            Assert.NotEmpty(actual);
-        }
+
 
         [Fact]
         public void WithCollectionAndInnerAttribute()

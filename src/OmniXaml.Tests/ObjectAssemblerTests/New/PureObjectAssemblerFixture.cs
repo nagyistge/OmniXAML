@@ -2,9 +2,11 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
 {
     using System.Collections.Generic;
     using ObjectAssembler;
+    using Pure;
+    using Resources;
     using TypeConversion;
 
-    public class ObjectAssemblerFixtureNew : ObjectAssemblerFixtureBase
+    public class PureObjectAssemblerFixture : ObjectAssemblerFixtureBase
     {
         public override IObjectAssembler CreateObjectAssembler()
         {
@@ -12,5 +14,7 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
             var valueConnectionContext = new ValueContext(RuntimeTypeSource, topDownValueContext, new Dictionary<string, object>());
             return new PureObjectAssembler(valueConnectionContext);
         }
+
+        public override IInstructionResources Resources => new PureInstructionResources(this);
     }
 }

@@ -1,4 +1,4 @@
-namespace OmniXaml.Tests.ObjectAssemblerTests.New
+namespace OmniXaml.Pure
 {
     using System.Collections;
     using TypeConversion;

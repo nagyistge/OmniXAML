@@ -2,6 +2,7 @@ namespace OmniXaml.Tests.ObjectAssemblerTests
 {
     using System.Collections.Generic;
     using ObjectAssembler;
+    using Resources;
     using TypeConversion;
 
     public class ObjectAssemblerFixture : ObjectAssemblerFixtureBase
@@ -12,5 +13,7 @@ namespace OmniXaml.Tests.ObjectAssemblerTests
             var valueConnectionContext = new ValueContext(RuntimeTypeSource, topDownValueContext, new Dictionary<string, object>());
             return new ObjectAssembler(RuntimeTypeSource, valueConnectionContext, new Settings { InstanceLifeCycleListener = new TestListener() });
         }
+
+        public override IInstructionResources Resources => new InstructionResources(this);
     }
 }

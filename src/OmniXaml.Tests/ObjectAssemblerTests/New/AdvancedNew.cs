@@ -1,13 +1,10 @@
 namespace OmniXaml.Tests.ObjectAssemblerTests.New
 {
-    using Testing.Classes;
-    using Xunit;
-
-    public class BasicNew : Basic
+    public class AdvancedNew : Advanced
     {
-        public BasicNew()
+        public AdvancedNew()
         {
             Fixture = new PureObjectAssemblerFixture();
-        }        
+        }
     }
 }
