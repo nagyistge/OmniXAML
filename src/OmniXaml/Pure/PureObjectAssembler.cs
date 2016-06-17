@@ -77,7 +77,10 @@ namespace OmniXaml.Pure
                     }
                     else
                     {
-                        workbenches.CurrentValue.Instance = workbenches.CurrentValue.XamlType.CreateInstance(null);
+                        if (workbenches.CurrentValue.Instance == null)
+                        {
+                            workbenches.CurrentValue.Instance = workbenches.CurrentValue.XamlType.CreateInstance(null);
+                        }
                     }
 
                     
@@ -90,15 +93,16 @@ namespace OmniXaml.Pure
                     workbenches.Push(item);
                     break;
                 case InstructionType.EndObject:
+
+                    if (workbenches.CurrentValue.Instance == null)
+                    {
+                        workbenches.CurrentValue.Instance = workbenches.CurrentValue.XamlType.CreateInstance(null);
+                    }
+
                     if (workbenches.Previous != null)
                     {
                         if (Equals(workbenches.PreviousValue.Member, CoreTypes.Items))
-                        {
-                            if (workbenches.CurrentValue.Instance == null)
-                            {
-                                workbenches.CurrentValue.Instance = workbenches.CurrentValue.XamlType.CreateInstance(null);
-                            }
-
+                        {                          
                             workbenches.PreviousValue.BufferedChildren.Add(workbenches.CurrentValue.Instance);
                             workbenches.Pop();
                         }
