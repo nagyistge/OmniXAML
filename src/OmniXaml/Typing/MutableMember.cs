@@ -51,6 +51,9 @@ namespace OmniXaml.Typing
             return new MemberValuePlugin(this);
         }
 
+        public bool CanBeSet => MemberValuePlugin.CanSetValue();
+         
+
         public void SetValue(object instance, object value, IValueContext pipeline)
         {
             MemberValuePlugin.SetValue(instance, value, pipeline);

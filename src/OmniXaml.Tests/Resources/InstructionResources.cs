@@ -259,7 +259,18 @@ namespace OmniXaml.Tests.Resources
             }
         }
 
-        public IEnumerable<Instruction> OneImmutableObject { get; }
+        public IEnumerable<Instruction> OneImmutableObject
+        {
+            get
+            {
+                return new Collection<Instruction>
+                {
+                    X.NamespacePrefixDeclaration(RootNs),
+                    X.StartObject<ImmutableDummy>(),
+                    X.EndObject()
+                };
+            }
+        }
 
         public IEnumerable<Instruction> StringInitialization(NamespaceDeclaration sysNs)
         {

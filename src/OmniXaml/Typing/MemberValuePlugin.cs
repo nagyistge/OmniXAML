@@ -24,6 +24,11 @@ namespace OmniXaml.Typing
             }
         }
 
+        public bool CanSetValue()
+        {
+            return ValueSetter == null;
+        }
+
         public virtual void SetValue(object instance, object value, IValueContext valueContext)
         {
             if (ValueSetter.IsStatic)

@@ -5,6 +5,7 @@ namespace OmniXaml.Typing
     public interface IMemberValuePlugin
     {
         void SetValue(object instance, object value, IValueContext valueContext);
-        object GetValue(object instance);        
+        object GetValue(object instance);
+        bool CanSetValue();
     }
 }

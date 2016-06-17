@@ -10,6 +10,7 @@ namespace OmniXaml
 
     public class RuntimeTypeSource : IRuntimeTypeSource
     {
+        private ITypeFeatureProvider featureProvider;
         public INamespaceRegistry NamespaceRegistry { get; }
 
         public RuntimeTypeSource(ITypeRepository typeRepository, INamespaceRegistry nsRegistry)
@@ -88,6 +89,27 @@ namespace OmniXaml
             var xamlTypeRepo = new TypeRepository(xamlNamespaceRegistry, typeFactory, typeFeatureProvider);
 
             return new RuntimeTypeSource(xamlTypeRepo, xamlNamespaceRegistry);
+        }
+
+        public ITypeConverter GetTypeConverter(Type type)
+        {
+            return featureProvider.GetTypeConverter(type);
+        }
+
+        public string GetContentPropertyName(Type type)
+        {
+            return featureProvider.GetContentPropertyName(type);
+        }
+
+        public IEnumerable<TypeConverterRegistration> TypeConverters => featureProvider.TypeConverters;
+        public Metadata GetMetadata(Type type)
+        {
+            return featureProvider.GetMetadata(type);
+        }
+
+        public void RegisterMetadata(Type type, Metadata metadata)
+        {
+            featureProvider.RegisterMetadata(type, metadata);
         }
     }
 }

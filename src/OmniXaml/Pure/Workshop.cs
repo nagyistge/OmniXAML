@@ -28,6 +28,18 @@ namespace OmniXaml.Pure
             if (Current.Instance == null)
             {
                 Current.Instance = Current.XamlType.CreateInstance(null);
+
+                SetAssignments();
+            }
+        }
+
+        private void SetAssignments()
+        {
+            var instance = Current.Instance;
+            foreach (var assigment in Current.MemberAssignments)
+            {
+                var mutable = (MutableMember) assigment.Key;
+                mutable.SetValue(instance, assigment.Value, valueContext);
             }
         }
 
@@ -45,7 +57,6 @@ namespace OmniXaml.Pure
 
         public void StartMember(MemberBase member)
         {
-            CreateInstanceIfNotYetCreated();
             Current.Member = member;
         }
 
@@ -58,7 +69,8 @@ namespace OmniXaml.Pure
         public void EndObject()
         {
             CreateInstanceIfNotYetCreated();
-
+            
+        
             if (workbenches.Previous != null)
             {
                 if (Equals(Previous.Member, CoreTypes.Items))
@@ -71,18 +83,20 @@ namespace OmniXaml.Pure
             setResult(Current.Instance);
         }
 
+
+
         public void EndMember()
         {
             if (!Current.Flag)
             {
-                object instanceToAssign;
+                object valueToAssign;
                 if (Equals(Current.Member, CoreTypes.Items))
                 {
-                    instanceToAssign = CreateCollection();
+                    valueToAssign = CreateCollection();
                 }
                 else
                 {
-                    instanceToAssign = Current.Instance;
+                    valueToAssign = Current.Instance;
                 }
 
                 if (Equals(Current.Member, CoreTypes.Items))
@@ -92,21 +106,16 @@ namespace OmniXaml.Pure
 
                 workbenches.Pop();
 
-                AssignCompatibleValue(instanceToAssign);
+                StoreAssignment(valueToAssign);
             }
         }
 
-        private void AssignCompatibleValue(object instanceToAssign)
+        private void StoreAssignment(object instanceToAssign)
         {
             object converted;
-            if (CommonValueConversion.TryConvert(instanceToAssign, Current.Member.XamlType, valueContext, out converted))
-            {
-                Current.SetMemberValue(converted);
-            }
-            else
-            {
-                Current.SetMemberValue(instanceToAssign);
-            }
+            var finalValue = CommonValueConversion.TryConvert(instanceToAssign, Current.Member.XamlType, valueContext, out converted) ? converted : instanceToAssign;
+
+            Current.MemberAssignments.Add(Current.Member, finalValue);
         }
 
         private IList CreateCollection()

@@ -1,6 +1,7 @@
 namespace OmniXaml.Pure
 {
     using System.Collections;
+    using System.Collections.Generic;
     using TypeConversion;
     using Typing;
 
@@ -18,6 +19,7 @@ namespace OmniXaml.Pure
         public ArrayList BufferedChildren { get; set; } = new ArrayList();
         public bool Flag { get; set; }
         public XamlType XamlType { get; set; }
+        public IDictionary<MemberBase, object> MemberAssignments { get; } = new Dictionary<MemberBase, object>();
 
         public void SetMemberValue(object value)
         {

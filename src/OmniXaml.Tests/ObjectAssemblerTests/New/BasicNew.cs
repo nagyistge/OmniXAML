@@ -90,7 +90,7 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
             Assert.IsType(typeof(DummyClass), result);
         }
 
-        [Fact(Skip = "Future")]
+        [Fact]
         public void OneImmutableObject()
         {
             var sut = Fixture.CreateObjectAssembler();

@@ -2,7 +2,7 @@
 {
     public class ImmutableDummy
     {
-        public string Text { get; set; }
+        public string Text { get; }
 
         public ImmutableDummy(string text)
         {
