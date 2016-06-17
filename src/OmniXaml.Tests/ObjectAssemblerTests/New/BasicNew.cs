@@ -98,7 +98,8 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
 
             var result = sut.Result;
 
-            Assert.IsType(typeof(DummyClass), result);
+            Assert.IsType(typeof(ImmutableDummy), result);
+            Assert.Equal(((ImmutableDummy)result).Text, "Greetings");
         }
     }
 }

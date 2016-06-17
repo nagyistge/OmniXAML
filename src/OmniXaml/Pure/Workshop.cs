@@ -2,6 +2,7 @@ namespace OmniXaml.Pure
 {
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using Glass.Core;
@@ -27,18 +28,26 @@ namespace OmniXaml.Pure
         {
             if (Current.Instance == null)
             {
-                Current.Instance = Current.XamlType.CreateInstance(null);
+                var groupedAssignments = Current.MemberAssignments.GroupBy(pair => pair.Key.IsWritable).ToList();
 
-                SetAssignments();
+                var instance = CreateInstance(groupedAssignments.Where(pairs => !pairs.Key).SelectMany(pairs => pairs));
+                SetAssignments(instance, groupedAssignments.Where(pairs => pairs.Key).SelectMany(pairs => pairs));
+
+                Current.Instance = instance;
             }
         }
 
-        private void SetAssignments()
+        private object CreateInstance(IEnumerable<KeyValuePair<MutableMember, object>> ctorAssignments)
         {
-            var instance = Current.Instance;
-            foreach (var assigment in Current.MemberAssignments)
+            var parameters = ctorAssignments.Select(pair => pair.Value).ToArray();
+            return Current.XamlType.CreateInstance(parameters);
+        }
+
+        private void SetAssignments(object instance, IEnumerable<KeyValuePair<MutableMember, object>> writableAssignments)
+        {
+            foreach (var assigment in writableAssignments)
             {
-                var mutable = (MutableMember) assigment.Key;
+                var mutable = assigment.Key;
                 mutable.SetValue(instance, assigment.Value, valueContext);
             }
         }
@@ -115,7 +124,7 @@ namespace OmniXaml.Pure
             object converted;
             var finalValue = CommonValueConversion.TryConvert(instanceToAssign, Current.Member.XamlType, valueContext, out converted) ? converted : instanceToAssign;
 
-            Current.MemberAssignments.Add(Current.Member, finalValue);
+            Current.MemberAssignments.Add((MutableMember) Current.Member, finalValue);
         }
 
         private IList CreateCollection()

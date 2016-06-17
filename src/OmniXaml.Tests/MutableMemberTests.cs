@@ -2,7 +2,6 @@
 {
     using ObjectAssemblerTests.New;
     using Testing.Classes;
-    using Typing;
     using Xunit;
 
     public class MutableMemberTests

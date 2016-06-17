@@ -19,7 +19,7 @@ namespace OmniXaml.Pure
         public ArrayList BufferedChildren { get; set; } = new ArrayList();
         public bool Flag { get; set; }
         public XamlType XamlType { get; set; }
-        public IDictionary<MemberBase, object> MemberAssignments { get; } = new Dictionary<MemberBase, object>();
+        public IDictionary<MutableMember, object> MemberAssignments { get; } = new Dictionary<MutableMember, object>();
 
         public void SetMemberValue(object value)
         {

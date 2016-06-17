@@ -17,7 +17,7 @@ namespace OmniXaml.Typing
 
         public override MethodInfo Getter => DeclaringType.UnderlyingType.GetRuntimeProperty(Name).GetMethod;
         public override MethodInfo Setter => DeclaringType.UnderlyingType.GetRuntimeProperty(Name).SetMethod;
-        public bool IsWritable => Setter != null;
+        
 
         private XamlType LookupType()
         {

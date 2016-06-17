@@ -26,6 +26,7 @@ namespace OmniXaml.Typing
         public abstract MethodInfo Getter { get; }
         public abstract MethodInfo Setter { get; }
         public IEnumerable<Member> Dependencies => LookupDependencies();
+        public bool IsWritable => Setter != null;
 
         protected virtual IEnumerable<Member> LookupDependencies()
         {
@@ -50,9 +51,6 @@ namespace OmniXaml.Typing
         {
             return new MemberValuePlugin(this);
         }
-
-        public bool CanBeSet => MemberValuePlugin.CanSetValue();
-         
 
         public void SetValue(object instance, object value, IValueContext pipeline)
         {

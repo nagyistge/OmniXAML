@@ -267,6 +267,9 @@ namespace OmniXaml.Tests.Resources
                 {
                     X.NamespacePrefixDeclaration(RootNs),
                     X.StartObject<ImmutableDummy>(),
+                    X.StartMember<ImmutableDummy>(dummy => dummy.Text),
+                    X.Value("Greetings"),
+                    X.EndMember(),
                     X.EndObject()
                 };
             }
