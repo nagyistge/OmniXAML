@@ -1,8 +1,5 @@
-﻿namespace OmniXaml.Tests.ObjectAssemblerTests
+﻿namespace OmniXaml.Tests.ObjectAssemblerTests.New
 {
-    using New;
-    using Xunit;
-
     public class InitializationNew : Initialization
     {
         public InitializationNew()

@@ -17,6 +17,7 @@ namespace OmniXaml.Pure
         public MemberBase Member { get; set; }
         public ArrayList BufferedChildren { get; set; } = new ArrayList();
         public bool Flag { get; set; }
+        public XamlType XamlType { get; set; }
 
         public void SetMemberValue(object value)
         {

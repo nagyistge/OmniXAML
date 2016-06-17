@@ -32,7 +32,9 @@ namespace OmniXaml.Pure
             switch (instruction.InstructionType)
             {
                 case InstructionType.StartObject:
-                    PushWorkbenchAndSetInstance(instruction.XamlType.CreateInstance(null));
+                    var workbench = new Workbench(valueContext);
+                    workbench.XamlType = instruction.XamlType;
+                    workbenches.Push(workbench);
                     break;
                 case InstructionType.EndMember:
 
@@ -52,6 +54,7 @@ namespace OmniXaml.Pure
                         {
                             workbenches.PreviousValue.Flag = true;
                         }
+
                         workbenches.Pop();
 
                         object converted;
@@ -67,31 +70,42 @@ namespace OmniXaml.Pure
 
                     break;
                 case InstructionType.StartMember:
-                    if (Equals(instruction.Member, CoreTypes.Items))
+
+                    if (Equals(instruction.Member, CoreTypes.Items) || Equals(instruction.Member, CoreTypes.Initialization))
                     {
                         workbenches.Push(new Workbench(valueContext));
                     }
+                    else
+                    {
+                        workbenches.CurrentValue.Instance = workbenches.CurrentValue.XamlType.CreateInstance(null);
+                    }
 
+                    
                     workbenches.CurrentValue.Member = instruction.Member;
 
                     break;
                 case InstructionType.Value:
-                    PushWorkbenchAndSetInstance(instruction.Value);
+                    var item = new Workbench(valueContext);
+                    item.Instance = instruction.Value;
+                    workbenches.Push(item);
                     break;
                 case InstructionType.EndObject:
                     if (workbenches.Previous != null)
                     {
                         if (Equals(workbenches.PreviousValue.Member, CoreTypes.Items))
                         {
+                            if (workbenches.CurrentValue.Instance == null)
+                            {
+                                workbenches.CurrentValue.Instance = workbenches.CurrentValue.XamlType.CreateInstance(null);
+                            }
+
                             workbenches.PreviousValue.BufferedChildren.Add(workbenches.CurrentValue.Instance);
                             workbenches.Pop();
                         }
                     }
 
-
                     result = workbenches.CurrentValue.Instance;
-
-
+                    
                     break;
             }
         }
@@ -133,13 +147,6 @@ namespace OmniXaml.Pure
                 return false;
 
             return name.EndsWith("`1", StringComparison.Ordinal) || name.EndsWith("`2", StringComparison.Ordinal);
-        }
-
-        private void PushWorkbenchAndSetInstance(object instance)
-        {
-            var workbench = new Workbench(valueContext);
-            workbench.Instance = instance;
-            workbenches.Push(workbench);
         }
 
         public void OverrideInstance(object instance)
