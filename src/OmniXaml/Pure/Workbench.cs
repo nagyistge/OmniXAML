@@ -24,5 +24,13 @@ namespace OmniXaml.Pure
             var mutable = Member as MutableMember;
             mutable.SetValue(Instance, value, valueContext);
         }
+
+        public void CreateInstanceIfNotYetCreated()
+        {
+            if (Instance == null)
+            {
+                Instance = XamlType.CreateInstance(null);
+            }
+        }
     }
 }
