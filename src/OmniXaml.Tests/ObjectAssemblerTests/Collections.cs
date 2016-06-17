@@ -13,7 +13,7 @@
             Fixture = new ObjectAssemblerFixture();
         }
 
-        public ObjectAssemblerFixtureBase Fixture { get; set; }
+        public ObjectAssemblerFixture Fixture { get; set; }
 
         [Fact]
         public void WithCollection()
@@ -40,8 +40,6 @@
             var arrayList = (List<object>)result;
             Assert.True(arrayList.Count > 0);
         }
-
-
 
         [Fact]
         public void WithCollectionAndInnerAttribute()

@@ -14,7 +14,7 @@ namespace OmniXaml.Tests.ObjectAssemblerTests
             Fixture = new ObjectAssemblerFixture();
         }
 
-        public ObjectAssemblerFixtureBase Fixture { get; set; }
+        public ObjectAssemblerFixture Fixture { get; set; }
 
         [Fact]
         public void AttemptToAssignItemsToNonCollectionMember()

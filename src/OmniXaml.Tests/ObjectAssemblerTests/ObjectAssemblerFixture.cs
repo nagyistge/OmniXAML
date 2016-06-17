@@ -14,6 +14,6 @@ namespace OmniXaml.Tests.ObjectAssemblerTests
             return new ObjectAssembler(RuntimeTypeSource, valueConnectionContext, new Settings { InstanceLifeCycleListener = new TestListener() });
         }
 
-        public override IInstructionResources Resources => new InstructionResources(this);
+        public InstructionResources Resources => new InstructionResources(this);
     }
 }

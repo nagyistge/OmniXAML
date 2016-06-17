@@ -15,6 +15,6 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
             return new PureObjectAssembler(valueConnectionContext);
         }
 
-        public override IInstructionResources Resources => new PureInstructionResources(this);
+        public PureInstructionResources Resources => new PureInstructionResources(this);
     }
 }

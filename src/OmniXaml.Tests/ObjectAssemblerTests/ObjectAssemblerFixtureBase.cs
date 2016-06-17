@@ -25,7 +25,6 @@ namespace OmniXaml.Tests.ObjectAssemblerTests
         public TestRuntimeTypeSource RuntimeTypeSource { get; set; }
 
         public abstract IObjectAssembler CreateObjectAssembler();
-        public abstract IInstructionResources Resources { get; }
 
         public IObjectAssembler CreateSutForLoadingSpecificInstance(object instance)
         {

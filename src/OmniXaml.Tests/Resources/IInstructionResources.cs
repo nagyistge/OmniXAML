@@ -83,6 +83,7 @@ namespace OmniXaml.Tests.Resources
         IEnumerable<Instruction> ExplicitCollection { get; }
         IEnumerable<Instruction> ImplicitCollection { get; }
         IEnumerable<Instruction> MemberAfterInitalizationValue { get; }
+        IEnumerable<Instruction> OneImmutableObject { get; }
         IEnumerable<Instruction> StringInitialization(NamespaceDeclaration sysNs);
         IEnumerable<Instruction> CreateExpectedNodesForImplicitContentPropertyWithImplicityCollection();
     }

@@ -10,7 +10,7 @@ namespace OmniXaml.Tests.Resources
     using Testing.Common;
     using Typing;
 
-    public class InstructionResources : IInstructionResources
+    public class InstructionResources
     {
         public InstructionResources(IResourceBuilder source)
         {
@@ -22,11 +22,11 @@ namespace OmniXaml.Tests.Resources
 
         public NamespaceDeclaration SpecialNs { get; set; }
 
-        private XamlInstructionBuilder X { get; }
+        protected XamlInstructionBuilder X { get; }
 
-        private NamespaceDeclaration RootNs { get; }
+        protected NamespaceDeclaration RootNs { get; }
 
-        private NamespaceDeclaration AnotherNs { get; }
+        protected NamespaceDeclaration AnotherNs { get; }
 
         public IEnumerable<Instruction> ExtensionWithTwoArguments
         {
@@ -259,6 +259,8 @@ namespace OmniXaml.Tests.Resources
             }
         }
 
+        public IEnumerable<Instruction> OneImmutableObject { get; }
+
         public IEnumerable<Instruction> StringInitialization(NamespaceDeclaration sysNs)
         {
             return new Collection<Instruction>
@@ -416,30 +418,7 @@ namespace OmniXaml.Tests.Resources
                     X.EndObject(),
                 };
             }
-        }
-
-        public IEnumerable<Instruction> ImmutableCollectionWithMoreThanOneItem
-        {
-            get
-            {
-                return new List<Instruction>
-                {
-                    X.NamespacePrefixDeclaration(RootNs),
-                    X.StartObject<DummyClass>(),
-                    X.StartMember<DummyClass>(d => d.ImmutableItems),
-                    X.Items(),
-                    X.StartObject<Item>(),
-                    X.EndObject(),
-                    X.StartObject<Item>(),
-                    X.EndObject(),
-                    X.StartObject<Item>(),
-                    X.EndObject(),
-                    X.EndMember(),
-                    X.EndMember(),
-                    X.EndObject(),
-                };
-            }
-        }
+        }        
 
         public IEnumerable<Instruction> NestedChildWithContentProperty
         {
