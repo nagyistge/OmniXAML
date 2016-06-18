@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace OmniXaml.Tests
+﻿namespace OmniXaml.Tests
 {
     using Testing.Classes;
     using Xunit;
@@ -11,27 +6,51 @@ namespace OmniXaml.Tests
     public class TypeFactoryTests
     {
         [Fact]
-        public void NoDefaultCtor_WitNoArgs()
+        public void NoParameters()
         {
             var sut = new TypeFactory();
 
-            Assert.False(sut.CanCreate(typeof(ImmutableDummy)));
+            Assert.Null(sut.Create(typeof(ImmutableDummy)));
         }
 
         [Fact]
-        public void NoDefaultCtor_WithCorrectArgs()
+        public void OnlyOneParameter()
         {
             var sut = new TypeFactory();
 
-            Assert.True(sut.CanCreate(typeof(ImmutableDummy), "some string"));
+            Assert.NotNull(sut.Create(typeof(ImmutableDummy), "some string"));
         }
 
         [Fact]
-        public void NoDefaultCtor_WithIncorrectArgs()
+        public void TwoParameters()
         {
             var sut = new TypeFactory();
 
-            Assert.True(sut.CanCreate(typeof(ImmutableDummy), "some string", "other string"));
+            Assert.NotNull(sut.Create(typeof(ImmutableDummy), "some string", new ChildClass()));
+        }
+
+        [Fact]
+        public void TwoParametersReversedOrder()
+        {
+            var sut = new TypeFactory();
+
+            Assert.NotNull(sut.Create(typeof(ImmutableDummy), new ChildClass(), "some string"));
+        }
+
+        [Fact]
+        public void TwoParametersReversedOrderWithDerivedChild()
+        {
+            var sut = new TypeFactory();
+
+            Assert.NotNull(sut.Create(typeof(ImmutableDummy), new DerivedChild(), "some string"));
+        }
+
+        [Fact]
+        public void TwoParametersUnmatchingTypes()
+        {
+            var sut = new TypeFactory();
+
+            Assert.Null(sut.Create(typeof(ImmutableDummy), "one", "two"));
         }
     }
 }
