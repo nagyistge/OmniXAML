@@ -1,12 +1,13 @@
 namespace OmniXaml.Testing.Common
 {
     using System;
+    using ObjectFactories;
     using Typing;
 
     internal class XamlTypeMock : XamlType
     {
-        public XamlTypeMock(Type type, ITypeRepository typeRepository, ITypeFactory typeTypeFactory, ITypeFeatureProvider featureProvider)
-            : base(type, typeRepository, typeTypeFactory, featureProvider)
+        public XamlTypeMock(Type type, ITypeRepository typeRepository, IObjectFactory objectObjectFactory, ITypeFeatureProvider featureProvider)
+            : base(type, typeRepository, objectObjectFactory, featureProvider)
         {
         }
 

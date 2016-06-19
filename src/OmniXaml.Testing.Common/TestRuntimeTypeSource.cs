@@ -6,6 +6,7 @@ namespace OmniXaml.Testing.Common
     using Builder;
     using Classes;
     using Glass.Core;
+    using ObjectFactories;
     using TypeConversion;
     using Typing;
 
@@ -20,8 +21,9 @@ namespace OmniXaml.Testing.Common
 
             var featureProvider = new TypeFeatureProvider(new TypeConverterProvider());
             featureProvider.FillFromAttributes(ScannedAssemblies.AllExportedTypes());
-            testTypeRepository = new TestTypeRepository(namespaceRegistry, new TypeFactory(), featureProvider);
-            
+            var compositeObjectFactory = new CompositeObjectFactory(new OrdinalObjectFactory(), new NameMatchingObjectFactory());
+            testTypeRepository = new TestTypeRepository(namespaceRegistry, compositeObjectFactory, featureProvider);
+
             inner = new RuntimeTypeSource(testTypeRepository, namespaceRegistry);
             inner.RegisterPrefix(new PrefixRegistration("", "root"));
             inner.RegisterPrefix(new PrefixRegistration("x", "another"));

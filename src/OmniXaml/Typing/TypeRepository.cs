@@ -3,33 +3,34 @@ namespace OmniXaml.Typing
     using System;
     using System.Reflection;
     using Glass.Core;
+    using ObjectFactories;
 
     public class TypeRepository : ITypeRepository
     {
         private readonly INamespaceRegistry namespaceRegistry;
-        private readonly ITypeFactory typeTypeFactory;
+        private readonly IObjectFactory objectObjectFactory;
         private readonly ITypeFeatureProvider featureProvider;
 
-        public TypeRepository(INamespaceRegistry namespaceRegistry, ITypeFactory typeTypeFactory, ITypeFeatureProvider featureProvider)
+        public TypeRepository(INamespaceRegistry namespaceRegistry, IObjectFactory objectObjectFactory, ITypeFeatureProvider featureProvider)
         {
             Guard.ThrowIfNull(namespaceRegistry, nameof(namespaceRegistry));
-            Guard.ThrowIfNull(typeTypeFactory, nameof(typeTypeFactory));
+            Guard.ThrowIfNull(objectObjectFactory, nameof(objectObjectFactory));
             Guard.ThrowIfNull(featureProvider, nameof(featureProvider));
 
             this.namespaceRegistry = namespaceRegistry;
-            this.typeTypeFactory = typeTypeFactory;
+            this.objectObjectFactory = objectObjectFactory;
             this.featureProvider = featureProvider;
         }
 
         public ITypeFeatureProvider FeatureProvider => featureProvider;
 
-        public ITypeFactory TypeFactory => typeTypeFactory;
+        public IObjectFactory ObjectFactory => objectObjectFactory;
 
         public virtual XamlType GetByType(Type type)
         {
             Guard.ThrowIfNull(type, nameof(type));
 
-            return XamlType.Create(type, this, TypeFactory, featureProvider);
+            return XamlType.Create(type, this, ObjectFactory, featureProvider);
         }
 
         public XamlType GetByQualifiedName(string qualifiedName)

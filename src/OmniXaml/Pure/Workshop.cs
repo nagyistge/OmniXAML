@@ -39,7 +39,7 @@ namespace OmniXaml.Pure
 
         private object CreateInstance(IEnumerable<KeyValuePair<MutableMember, object>> ctorAssignments)
         {
-            var parameters = ctorAssignments.Select(pair => pair.Value).ToArray();
+            var parameters = ctorAssignments.Select(pair => new InjectableValue(pair.Key.Name, pair.Value)).ToArray();
             return Current.XamlType.CreateInstance(parameters);
         }
 
@@ -79,7 +79,6 @@ namespace OmniXaml.Pure
         {
             CreateInstanceIfNotYetCreated();
             
-        
             if (workbenches.Previous != null)
             {
                 if (Equals(Previous.Member, CoreTypes.Items))

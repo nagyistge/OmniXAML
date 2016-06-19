@@ -5,6 +5,7 @@ namespace OmniXaml
     using System.Reflection;
     using Builder;
     using Glass.Core;
+    using ObjectFactories;
     using TypeConversion;
     using Typing;
 
@@ -78,7 +79,7 @@ namespace OmniXaml
         {
             var allExportedTypes = assemblies.AllExportedTypes();
 
-            var typeFactory = new TypeFactory();
+            var typeFactory = new CompositeObjectFactory();
 
             var xamlNamespaceRegistry = new NamespaceRegistry();
             xamlNamespaceRegistry.FillFromAttributes(assemblies);

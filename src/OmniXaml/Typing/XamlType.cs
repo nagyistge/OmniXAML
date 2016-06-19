@@ -6,18 +6,19 @@ namespace OmniXaml.Typing
     using System.Linq;
     using System.Reflection;
     using Glass.Core;
+    using ObjectFactories;
     using TypeConversion;
 
     public class XamlType
     {
-        public XamlType(Type type, ITypeRepository typeRepository, ITypeFactory typeTypeFactory, ITypeFeatureProvider featureProvider)
+        public XamlType(Type type, ITypeRepository typeRepository, IObjectFactory objectObjectFactory, ITypeFeatureProvider featureProvider)
         {
             Guard.ThrowIfNull(type, nameof(type));
             Guard.ThrowIfNull(typeRepository, nameof(typeRepository));
             Guard.ThrowIfNull(featureProvider, nameof(featureProvider));
 
             TypeRepository = typeRepository;
-            TypeFactory = typeTypeFactory;
+            ObjectFactory = objectObjectFactory;
             FeatureProvider = featureProvider;
             UnderlyingType = type;
             Name = type.Name;
@@ -59,7 +60,7 @@ namespace OmniXaml.Typing
         // ReSharper disable once MemberCanBeProtected.Global
         public ITypeRepository TypeRepository { get; }
         // ReSharper disable once MemberCanBeProtected.Global
-        public ITypeFactory TypeFactory { get; }
+        public IObjectFactory ObjectFactory { get; }
         // ReSharper disable once MemberCanBeProtected.Global
         public ITypeFeatureProvider FeatureProvider { get; }
 
@@ -129,19 +130,19 @@ namespace OmniXaml.Typing
             return "XamlType: " + Name;
         }
 
-        public object CreateInstance(params object[] parameters)
+        public object CreateInstance(params InjectableValue[] parameters)
         {
-            return TypeFactory.Create(UnderlyingType, parameters);
+            return ObjectFactory.Create(UnderlyingType, parameters);
         }
 
         public static XamlType Create(Type underlyingType,
             ITypeRepository typeRepository,
-            ITypeFactory typeFactory,
+            IObjectFactory objectFactory,
             ITypeFeatureProvider featureProvider)
         {
             Guard.ThrowIfNull(underlyingType, nameof(typeRepository));
 
-            return new XamlType(underlyingType, typeRepository, typeFactory, featureProvider);
+            return new XamlType(underlyingType, typeRepository, objectFactory, featureProvider);
         }
 
         public static XamlType CreateForBuiltInType(Type type)

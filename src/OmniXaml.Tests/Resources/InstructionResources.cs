@@ -394,45 +394,22 @@ namespace OmniXaml.Tests.Resources
                 {
                     X.NamespacePrefixDeclaration(RootNs),
                     X.StartObject<DummyClass>(),
-                    X.StartMember<DummyClass>(d => d.Items),
-                    X.GetObject(),
-                    X.Items(),
-                    X.StartObject<Item>(),
-                    X.EndObject(),
-                    X.StartObject<Item>(),
-                    X.EndObject(),
-                    X.StartObject<Item>(),
-                    X.EndObject(),
-                    X.EndMember(),
-                    X.EndObject(),
-                    X.EndMember(),
+                        X.StartMember<DummyClass>(d => d.Items),
+                            X.GetObject(),
+                                X.Items(),
+                                    X.StartObject<Item>(),
+                                    X.EndObject(),
+                                    X.StartObject<Item>(),
+                                    X.EndObject(),
+                                    X.StartObject<Item>(),
+                                    X.EndObject(),
+                                X.EndMember(),
+                            X.EndObject(),
+                        X.EndMember(),
                     X.EndObject(),
                 };
             }
         }
-
-        public IEnumerable<Instruction> CollectionWithMoreThanOneItemNewAge
-        {
-            get
-            {
-                return new List<Instruction>
-                {
-                    X.NamespacePrefixDeclaration(RootNs),
-                    X.StartObject<DummyClass>(),
-                    X.StartMember<DummyClass>(d => d.Items),
-                    X.Items(),
-                    X.StartObject<Item>(),
-                    X.EndObject(),
-                    X.StartObject<Item>(),
-                    X.EndObject(),
-                    X.StartObject<Item>(),
-                    X.EndObject(),
-                    X.EndMember(),
-                    X.EndMember(),
-                    X.EndObject(),
-                };
-            }
-        }        
 
         public IEnumerable<Instruction> NestedChildWithContentProperty
         {
@@ -459,26 +436,26 @@ namespace OmniXaml.Tests.Resources
                 {
                     X.NamespacePrefixDeclaration(RootNs),
                     X.StartObject(typeof (DummyClass)),
-                    X.StartMember<DummyClass>(d => d.Items),
-                    X.GetObject(),
-                    X.Items(),
-                    X.StartObject<Item>(),
-                    X.StartMember<Item>(i => i.Title),
-                    X.Value("Main1"),
-                    X.EndMember(),
-                    X.EndObject(),
-                    X.StartObject<Item>(),
-                    X.StartMember<Item>(i => i.Title),
-                    X.Value("Main2"),
-                    X.EndMember(),
-                    X.EndObject(),
-                    X.EndMember(),
-                    X.EndObject(),
-                    X.EndMember(),
-                    X.StartMember<DummyClass>(d => d.Child),
-                    X.StartObject(typeof (ChildClass)),
-                    X.EndObject(),
-                    X.EndMember(),
+                        X.StartMember<DummyClass>(d => d.Items),
+                            X.GetObject(),
+                                X.Items(),
+                                    X.StartObject<Item>(),
+                                        X.StartMember<Item>(i => i.Title),
+                                            X.Value("Main1"),
+                                        X.EndMember(),
+                                    X.EndObject(),
+                                    X.StartObject<Item>(),
+                                        X.StartMember<Item>(i => i.Title),
+                                            X.Value("Main2"),
+                                        X.EndMember(),
+                                    X.EndObject(),
+                                X.EndMember(),
+                            X.EndObject(),
+                        X.EndMember(),
+                        X.StartMember<DummyClass>(d => d.Child),
+                            X.StartObject(typeof (ChildClass)),
+                            X.EndObject(),
+                        X.EndMember(),
                     X.EndObject(),
                 };
             }

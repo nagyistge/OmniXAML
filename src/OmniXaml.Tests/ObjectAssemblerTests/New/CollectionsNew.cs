@@ -44,6 +44,22 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
         }
 
         [Fact]
+        public void TwoNestedPropertiesUsingContentProperty()
+        {
+            var sut = Fixture.CreateObjectAssembler();
+            sut.Process(Fixture.Resources.TwoNestedPropertiesUsingContentProperty);
+
+            var result = sut.Result;
+            var children = ((DummyClass)result).Items;
+
+            Assert.IsType(typeof(DummyClass), result);
+            Assert.Equal(2, children.Count);
+            Assert.Equal("Main1", children[0].Title);
+            Assert.Equal("Main2", children[1].Title);
+            Assert.IsType(typeof(ChildClass), ((DummyClass)result).Child);
+        }
+
+        [Fact]
         public void MixedCollectionWithRootInstance()
         {
             var root = new List<object>();

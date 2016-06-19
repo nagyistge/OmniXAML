@@ -1,14 +1,15 @@
 namespace OmniXaml.ObjectAssembler
 {
     using System.Collections;
+    using ObjectFactories;
 
     public class TypeOperations
     {
-        private readonly ITypeFactory typeFactory;
+        private readonly IObjectFactory objectFactory;
 
-        public TypeOperations(ITypeFactory typeFactory)
+        public TypeOperations(IObjectFactory objectFactory)
         {
-            this.typeFactory = typeFactory;
+            this.objectFactory = objectFactory;
         }
 
         public static void AddToCollection(ICollection collection, object instance)

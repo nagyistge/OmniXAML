@@ -113,8 +113,8 @@ namespace OmniXaml.ObjectAssembler
             {
                 throw new ParseException("A type must be set before invoking MaterializeInstanceOfCurrentType");
             }
-            var parameters = GatherConstructionArguments();
-            var instance = xamlType.CreateInstance(parameters);
+            var parameters = GatherConstructionArguments() ?? new object[0];
+            var instance = xamlType.CreateInstance(parameters.Select(o => new InjectableValue(o)).ToArray());
 
             Current.Instance = instance;
             lifecycleListener.OnBegin(instance);
