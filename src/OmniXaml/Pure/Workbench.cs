@@ -2,6 +2,7 @@ namespace OmniXaml.Pure
 {
     using System.Collections;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using TypeConversion;
     using Typing;
 
@@ -20,6 +21,7 @@ namespace OmniXaml.Pure
         public bool Flag { get; set; }
         public XamlType XamlType { get; set; }
         public IDictionary<MutableMember, object> MemberAssignments { get; } = new Dictionary<MutableMember, object>();
+        public ICollection<object> InitializationValues { get; } = new Collection<object>();
 
         public void SetMemberValue(object value)
         {

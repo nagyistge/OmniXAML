@@ -131,7 +131,7 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
             Assert.NotEmpty(customCollection);
         }
 
-        [Fact(Skip = "Future")]
+        [Fact]
         public void CustomCollection()
         {
             var sut = Fixture.CreateObjectAssembler();

@@ -28,13 +28,38 @@ namespace OmniXaml.Pure
         {
             if (Current.Instance == null)
             {
-                var groupedAssignments = Current.MemberAssignments.GroupBy(pair => pair.Key.IsWritable).ToList();
+                object instance;
+                if (!Current.InitializationValues.Any())
+                {
+                    var groupedAssignments = Current.MemberAssignments.GroupBy(pair => pair.Key.IsWritable).ToList();
 
-                var instance = CreateInstance(groupedAssignments.Where(pairs => !pairs.Key).SelectMany(pairs => pairs));
-                SetAssignments(instance, groupedAssignments.Where(pairs => pairs.Key).SelectMany(pairs => pairs));
+                    instance = CreateInstance(groupedAssignments.Where(pairs => !pairs.Key).SelectMany(pairs => pairs));
+                    SetAssignments(instance, groupedAssignments.Where(pairs => pairs.Key).SelectMany(pairs => pairs));
+                }
+                else
+                {
+                    
+                    var finalParams = PromoteStringValuesToCtorParameters(Current.XamlType.UnderlyingType, Current.InitializationValues);
+                    instance = Current.XamlType.CreateInstance(finalParams.Select(o => new InjectableValue(o)).ToArray());
+                }
 
                 Current.Instance = instance;
             }
+        }
+
+        private IEnumerable<object> PromoteStringValuesToCtorParameters(Type underlyingType, IEnumerable<object> initializationValues)
+        {
+            var method = underlyingType.GetTypeInfo().DeclaredConstructors.FirstOrDefault(ctor => ctor.GetParameters().Length == initializationValues.Count());
+            return method
+                .GetParameters()
+                .Zip(initializationValues, (info, o) => ConvertValue(info.ParameterType, o));
+        }
+
+        private object ConvertValue(Type parameterType, object o)
+        {
+            var xamlType = valueContext.TypeRepository.GetByType(parameterType);
+            object value;
+            return CommonValueConversion.TryConvert(o, xamlType, valueContext, out value) ? value : o;
         }
 
         private object CreateInstance(IEnumerable<KeyValuePair<MutableMember, object>> ctorAssignments)
@@ -114,8 +139,23 @@ namespace OmniXaml.Pure
 
                 workbenches.Pop();
 
-                StoreAssignment(valueToAssign);
+                if (Equals(Current.Member, CoreTypes.Initialization))
+                {
+                    StoreInitializationValue(valueToAssign);
+                }
+                else
+                {
+                    StoreAssignment(valueToAssign);
+                }                    
             }
+        }
+
+        private void StoreInitializationValue(object instanceToAssign)
+        {
+            object converted;
+            var finalValue = CommonValueConversion.TryConvert(instanceToAssign, Current.Member.XamlType, valueContext, out converted) ? converted : instanceToAssign;
+
+            Current.InitializationValues.Add(finalValue);
         }
 
         private void StoreAssignment(object instanceToAssign)
