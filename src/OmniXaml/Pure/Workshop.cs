@@ -38,13 +38,25 @@ namespace OmniXaml.Pure
                 }
                 else
                 {
-                    
-                    var finalParams = PromoteStringValuesToCtorParameters(Current.XamlType.UnderlyingType, Current.InitializationValues);
-                    instance = Current.XamlType.CreateInstance(finalParams.Select(o => new InjectableValue(o)).ToArray());
+                    var owner = Previous.XamlType;
+                    if (IsPrimitiveType(owner) && Current.InitializationValues.Count == 1)
+                    {
+                        instance = ConvertValue(owner.UnderlyingType, Current.InitializationValues.First());
+                    }
+                    else
+                    {
+                        var finalParams = PromoteStringValuesToCtorParameters(owner.UnderlyingType, Current.InitializationValues);
+                        instance = Current.XamlType.CreateInstance(finalParams.Select(o => new InjectableValue(o)).ToArray());
+                    }
                 }
 
                 Current.Instance = instance;
             }
+        }
+
+        private bool IsPrimitiveType(XamlType owner)
+        {
+            return owner.UnderlyingType == typeof(int);
         }
 
         private IEnumerable<object> PromoteStringValuesToCtorParameters(Type underlyingType, IEnumerable<object> initializationValues)
