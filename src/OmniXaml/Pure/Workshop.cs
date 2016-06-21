@@ -1,5 +1,3 @@
-using System.Runtime.CompilerServices;
-
 namespace OmniXaml.Pure
 {
     using System;
@@ -10,11 +8,11 @@ namespace OmniXaml.Pure
     using TypeConversion;
     using Typing;
 
-    internal class Workshop
+    internal class Workshop : IWorkshop
     {
         private readonly Action<object> setResult;
         private readonly IValueContext valueContext;
-        private readonly StackingLinkedList<Workbench> workbenches = new StackingLinkedList<Workbench>();
+        public readonly StackingLinkedList<Workbench> workbenches = new StackingLinkedList<Workbench>();
 
         public Workshop(IValueContext valueContext, Action<object> setResult)
         {
@@ -22,10 +20,18 @@ namespace OmniXaml.Pure
             this.setResult = setResult;
         }
 
-        private Workbench Current => workbenches.CurrentValue;
-        private Workbench Previous => workbenches.PreviousValue;
+        public Workbench Current => workbenches.CurrentValue;
+        public Workbench Previous => workbenches.PreviousValue;
 
-        public void StartObjectOftype(XamlType xamlType)
+
+
+        public bool IsDirective => Current.Member != null && Current.Member.IsDirective && !Current.IsDirectiveProcessed;
+
+        public bool IsRegularMemberValue => !Current.Member.Equals(CoreTypes.Initialization);
+
+        public StackingLinkedList<Workbench> Workbenches => workbenches;
+
+        public void StartObject(XamlType xamlType)
         {
             var workbench = new Workbench(valueContext) { XamlType = xamlType };
             workbenches.Push(workbench);
@@ -35,22 +41,8 @@ namespace OmniXaml.Pure
         {
             CreateInstanceIfNotYetCreated();
 
-            if (IsParentCollectingChildren)
-            {
-                AddChildAndCollapse();
-            }
-
             setResult(Current.Instance);
         }
-
-        private void AddChildAndCollapse()
-        {
-            var instance = Current.Instance;
-            Collapse();
-            Previous.BufferedChildren.Add(instance);            
-        }
-
-        public bool IsParentCollectingChildren => workbenches.Previous != null && Equals(Previous?.Member, CoreTypes.Items);
 
         public void StartMember(MemberBase member)
         {
@@ -59,38 +51,15 @@ namespace OmniXaml.Pure
 
         public void EndMember()
         {
-            if (IsDirective)
+            if (Current.IsDirectiveProcessed)
             {
-                EndDirective();
+                return;
             }
-            else
-            {
-                RegularEndMember();
-            }
-        }
 
-        public bool IsDirective => Current.Member != null && Current.Member.IsDirective && !Current.IsDirectiveProcessed;
-
-        private void EndDirective()
-        {
-            if (Current.Member.Equals(CoreTypes.Items))
-            {
-                var collection = CreateCollection(Previous.Member.XamlType, Previous.BufferedChildren);
-                Current.Instance = collection;                
-            }
+            StoreAssignment();
+            Collapse();
 
             Current.IsDirectiveProcessed = true;
-        }
-
-        private void Collapse()
-        {
-            workbenches.Pop();
-        }
-
-        private void RegularEndMember()
-        {
-            StoreAssignment();
-            workbenches.Pop();
         }
 
         public void StartDirective(Directive directive)
@@ -101,19 +70,14 @@ namespace OmniXaml.Pure
 
         public void SetValue(object value)
         {
-            if (IsRegularMemberValue)
-            {
-                var item = new Workbench(valueContext) {Instance = value};
-                workbenches.Push(item);
-            }
-            else
-            {
-                Collapse();
-                Current.InitializationValues.Add(value);
-            }
+            var item = new Workbench(valueContext) { Instance = value };
+            workbenches.Push(item);
         }
 
-        public bool IsRegularMemberValue => !Current.Member.Equals(CoreTypes.Initialization);
+        public void Collapse()
+        {
+            workbenches.Pop();
+        }
 
         private void CreateInstanceIfNotYetCreated()
         {
@@ -184,6 +148,6 @@ namespace OmniXaml.Pure
                 return false;
 
             return name.EndsWith("`1", StringComparison.Ordinal) || name.EndsWith("`2", StringComparison.Ordinal);
-        }     
+        }
     }
 }

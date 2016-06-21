@@ -1,9 +1,6 @@
 namespace OmniXaml.Pure
 {
     using System;
-    using System.Collections;
-    using System.Linq;
-    using System.Reflection;
     using Glass.Core;
     using ObjectAssembler;
     using ObjectAssembler.Commands;
@@ -15,12 +12,12 @@ namespace OmniXaml.Pure
         private readonly IValueContext valueContext;
 
         private readonly StackingLinkedList<Workbench> workbenches = new StackingLinkedList<Workbench>();
-        private readonly Workshop workshop;
+        private readonly IWorkshop workshop;
 
         public PureObjectAssembler(IValueContext valueContext)
         {
             this.valueContext = valueContext;
-            workshop = new Workshop(valueContext, r => Result = r);
+            workshop = new WorkshopProxy(new Workshop(valueContext, r => Result = r));
         }
 
         public object Result { get; private set; }
@@ -36,7 +33,7 @@ namespace OmniXaml.Pure
             {
                 case InstructionType.StartObject:
 
-                    workshop.StartObjectOftype(instruction.XamlType);
+                    workshop.StartObject(instruction.XamlType);
 
                     break;
 
