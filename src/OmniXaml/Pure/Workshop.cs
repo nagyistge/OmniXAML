@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+
 namespace OmniXaml.Pure
 {
     using System;
@@ -43,8 +45,9 @@ namespace OmniXaml.Pure
 
         private void AddChildAndCollapse()
         {
-            Previous.BufferedChildren.Add(Current.Instance);
+            var instance = Current.Instance;
             Collapse();
+            Previous.BufferedChildren.Add(instance);            
         }
 
         public bool IsParentCollectingChildren => workbenches.Previous != null && Equals(Previous?.Member, CoreTypes.Items);
@@ -72,10 +75,11 @@ namespace OmniXaml.Pure
         {
             if (Current.Member.Equals(CoreTypes.Items))
             {
-                var collection = CreateCollection(Previous.Member.XamlType, Current.BufferedChildren);
-                Current.Instance = collection;
-                Current.IsDirectiveProcessed = true;
+                var collection = CreateCollection(Previous.Member.XamlType, Previous.BufferedChildren);
+                Current.Instance = collection;                
             }
+
+            Current.IsDirectiveProcessed = true;
         }
 
         private void Collapse()
@@ -97,9 +101,19 @@ namespace OmniXaml.Pure
 
         public void SetValue(object value)
         {
-            var item = new Workbench(valueContext) { Instance = value };
-            workbenches.Push(item);
+            if (IsRegularMemberValue)
+            {
+                var item = new Workbench(valueContext) {Instance = value};
+                workbenches.Push(item);
+            }
+            else
+            {
+                Collapse();
+                Current.InitializationValues.Add(value);
+            }
         }
+
+        public bool IsRegularMemberValue => !Current.Member.Equals(CoreTypes.Initialization);
 
         private void CreateInstanceIfNotYetCreated()
         {

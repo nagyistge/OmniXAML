@@ -1557,5 +1557,20 @@ namespace OmniXaml.Tests.Resources
                 };
             }
         }
+
+        public IEnumerable<Instruction> IntValue
+        {
+            get
+            {
+                return new List<Instruction>
+                {
+                    X.StartObject<int>(),
+                        X.Initialization(),
+                            X.Value("1"),
+                        X.EndMember(),
+                    X.EndObject(),
+                };
+            }
+        }
     }
 }
