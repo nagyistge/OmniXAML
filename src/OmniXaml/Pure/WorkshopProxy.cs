@@ -52,9 +52,9 @@ namespace OmniXaml.Pure
                 workshop.EndMember();
             }
 
-            ConsumeDirective();
-            
             EndEndMember();
+
+            ConsumeDirective();
         }
 
         private void ConsumeDirective()
@@ -70,7 +70,6 @@ namespace OmniXaml.Pure
 
             if (member.IsDirective)
             {
-                workshop.Bump();
                 PushDirective((Directive) member);
             }
             else
@@ -94,6 +93,10 @@ namespace OmniXaml.Pure
 
         private void EndStartMember()
         {
+            if (CheckPreviousIsDirective(CoreTypes.Items))
+            {
+                workshop.Bump();
+            }
         }
 
         public bool CheckPreviousIsDirective(Directive directive)
@@ -126,6 +129,12 @@ namespace OmniXaml.Pure
 
         private void EndEndMember()
         {
+            if (CheckPreviousIsDirective(CoreTypes.Initialization))
+            {
+                var instance = Current.Instance;
+                Collapse();
+                Current.InitializationValues.Add(instance);                
+            }
         }
 
         private void BeginStartMember()

@@ -17,7 +17,7 @@ namespace OmniXaml.Tests.ObjectAssemblerTests.New
         {
             var sut = Fixture.CreateObjectAssembler();
             sut.Process(Fixture.Resources.IntValue);
-            Assert.NotEmpty((IEnumerable)sut.Result);
+            Assert.Equal(1, sut.Result);
         }
     }
 }

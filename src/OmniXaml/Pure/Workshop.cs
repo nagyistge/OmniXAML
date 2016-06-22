@@ -2,6 +2,7 @@ namespace OmniXaml.Pure
 {
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using Glass.Core;
@@ -67,19 +68,40 @@ namespace OmniXaml.Pure
 
         private void CreateInstance()
         {
-            var groupedAssignments = Current.MemberAssignments.GroupBy(pair => pair.Key.IsWritable).ToList();
-            var writable = groupedAssignments.Where(pairs => pairs.Key).SelectMany(p => p);
-            var nonWritable = groupedAssignments.Where(pairs => !pairs.Key).SelectMany(p => p);
-
-            var instance = Current.XamlType.CreateInstance(nonWritable.Select(pair => new InjectableValue(pair.Key.Name, pair.Value)).ToArray());
-            foreach (var directAssignment in writable)
+            object instance;
+            if (Current.InitializationValues.Any() && IsPrimitive(Current.XamlType))
             {
-                var member = directAssignment.Key;
-                var value = directAssignment.Value;
-                member.SetValue(instance, value, valueContext);
+                instance = CreatePrimitive(Current.XamlType, Current.InitializationValues);
+            }
+            else
+            {
+                var groupedAssignments = Current.MemberAssignments.GroupBy(pair => pair.Key.IsWritable).ToList();
+                var writable = groupedAssignments.Where(pairs => pairs.Key).SelectMany(p => p);
+                var nonWritable = groupedAssignments.Where(pairs => !pairs.Key).SelectMany(p => p);
+
+                var injectableValues = nonWritable.Select(pair => new InjectableValue(pair.Key.Name, pair.Value));
+                instance = Current.XamlType.CreateInstance(injectableValues.ToArray());
+                foreach (var directAssignment in writable)
+                {
+                    var member = directAssignment.Key;
+                    var value = directAssignment.Value;
+                    member.SetValue(instance, value, valueContext);
+                }
             }
 
             Current.Instance = instance;
+        }
+
+        private bool IsPrimitive(XamlType xamlType)
+        {
+            return xamlType.UnderlyingType == typeof(int);
+        }
+
+        private object CreatePrimitive(XamlType xamlType, ICollection<object> initializationValues)
+        {
+            object result;
+            CommonValueConversion.TryConvert(initializationValues.First(), xamlType, valueContext, out result);
+            return result;
         }
 
         private void AssignCurrentInstanceToPreviousMember()
