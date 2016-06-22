@@ -8,7 +8,6 @@ namespace OmniXaml.Pure
         void EndObject();
         void StartMember(MemberBase member);
         void EndMember();
-        void StartDirective(Directive directive);
         void SetValue(object value);
     }
 }

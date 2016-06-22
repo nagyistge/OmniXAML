@@ -45,15 +45,8 @@ namespace OmniXaml.Pure
 
                 case InstructionType.StartMember:
 
-                    if (instruction.Member.IsDirective)
-                    {
-                        workshop.StartDirective((Directive) instruction.Member);
-                    }
-                    else
-                    {
-                        workshop.StartMember(instruction.Member);
-                    }
-
+                    workshop.StartMember(instruction.Member);
+                    
                     break;
 
                 case InstructionType.Value:
@@ -73,6 +66,6 @@ namespace OmniXaml.Pure
         public void OverrideInstance(object instance)
         {
             throw new NotImplementedException();
-        }      
+        }
     }
 }

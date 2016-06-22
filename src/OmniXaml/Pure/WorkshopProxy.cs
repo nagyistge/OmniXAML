@@ -11,14 +11,94 @@ namespace OmniXaml.Pure
     {
         private readonly Workshop workshop;
 
+        public WorkshopProxy(Workshop workshop)
+        {
+            this.workshop = workshop;
+        }
+
         private StackingLinkedList<Workbench> Workbenches => workshop.Workbenches;
+        private readonly StackingLinkedList<Directive> directives = new StackingLinkedList<Directive>();
 
         public Workbench Previous => Workbenches.PreviousValue;
         public Workbench Current => Workbenches.CurrentValue;
 
-        public bool CheckIsDirective(Directive directive)
+        public void StartObject(XamlType xamlType)
         {
-            return Workbenches.Previous != null && Previous.Member != null && Previous.Member.Equals(directive);
+            BeginStartObject();
+            workshop.StartObject(xamlType);
+            EndStartObject();
+        }
+
+        public void SetValue(object value)
+        {
+            BeginSetValue();
+            workshop.SetValue(value);
+            EndSetValue();
+        }
+
+        public void EndObject()
+        {
+            EndBeginEndObject();
+            workshop.EndObject();
+            EndEndObject();
+        }
+
+        public void EndMember()
+        {
+            BeginEndMember();
+
+            if (!IsUnderDirective)
+            {
+                workshop.EndMember();
+            }
+
+            ConsumeDirective();
+            
+            EndEndMember();
+        }
+
+        private void ConsumeDirective()
+        {
+            directives.Pop();
+        }
+
+        public bool IsUnderDirective => directives.Current != null && directives.CurrentValue != null;
+
+        public void StartMember(MemberBase member)
+        {
+            BeginStartMember();
+
+            if (member.IsDirective)
+            {
+                workshop.Bump();
+                PushDirective((Directive) member);
+            }
+            else
+            {
+                workshop.StartMember(member);
+                PushNullDirective();
+            }
+
+            EndStartMember();
+        }
+
+        private void PushNullDirective()
+        {
+            directives.Push(null);
+        }
+
+        private void PushDirective(Directive directive)
+        {
+            directives.Push(directive);
+        }
+
+        private void EndStartMember()
+        {
+        }
+
+        public bool CheckPreviousIsDirective(Directive directive)
+        {
+            return directives.Current != null && directive.Equals(directives.CurrentValue);
         }
 
         public void Collapse()
@@ -26,33 +106,17 @@ namespace OmniXaml.Pure
             workshop.Collapse();
         }
 
-        public WorkshopProxy(Workshop workshop)
+        private void EndStartObject()
         {
-            this.workshop = workshop;
         }
 
-        public void StartObject(XamlType xamlType)
+        private void EndSetValue()
         {
-            StartObjectDirective();
-            workshop.StartObject(xamlType);
         }
 
-        public void SetValue(object value)
+        private void EndEndObject()
         {
-            SetValueDirective();
-            workshop.SetValue(value);
-        }
-
-        public void EndObject()
-        {
-            EndBeginEndObject();
-            workshop.EndObject();
-            OnFinishEndObject();
-        }
-
-        private void OnFinishEndObject()
-        {
-            if (CheckIsDirective(CoreTypes.Items))
+            if (CheckPreviousIsDirective(CoreTypes.Items))
             {
                 var instance = Current.Instance;
                 Collapse();
@@ -60,44 +124,30 @@ namespace OmniXaml.Pure
             }
         }
 
-        public void EndMember()
+        private void EndEndMember()
         {
-            BeginEndMember();
-            workshop.EndMember();
-        }
-
-        public void StartMember(MemberBase member)
-        {
-            BeginStartMember();
-            workshop.StartMember(member);
-        }
-
-        public void StartDirective(Directive directive)
-        {
-            workshop.StartDirective(directive);
         }
 
         private void BeginStartMember()
         {
         }
 
-        private void StartObjectDirective()
+        private void BeginStartObject()
         {
         }
 
         private void EndBeginEndObject()
         {
-         
         }
 
-        private void SetValueDirective()
+        private void BeginSetValue()
         {
         }
 
         private void BeginEndMember()
         {
             if (AreTherePendingChildren())
-            { 
+            {
                 var children = CreateCollection(Previous.Member.XamlType, Previous.BufferedChildren);
                 Current.Instance = children;
             }
@@ -105,7 +155,7 @@ namespace OmniXaml.Pure
 
         private bool AreTherePendingChildren()
         {
-            return Workbenches.Previous!= null && Previous.BufferedChildren.Count > 0;
+            return Workbenches.Previous != null && Previous.BufferedChildren.Count > 0;
         }
 
         private IList CreateCollection(XamlType collectionType, ICollection children)
@@ -143,5 +193,9 @@ namespace OmniXaml.Pure
 
             return name.EndsWith("`1", StringComparison.Ordinal) || name.EndsWith("`2", StringComparison.Ordinal);
         }
+    }
+
+    internal class NoDirective
+    {
     }
 }

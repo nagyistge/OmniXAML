@@ -22,7 +22,7 @@ namespace OmniXaml.Pure
         public XamlType XamlType { get; set; }
         public IDictionary<MutableMember, object> MemberAssignments { get; } = new Dictionary<MutableMember, object>();
         public ICollection<object> InitializationValues { get; } = new Collection<object>();
-        public bool IsDirectiveProcessed { get; set; }
+        public bool IsAssignmentDone { get; set; }
 
         public void SetMemberValue(object value)
         {

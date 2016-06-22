@@ -12,7 +12,7 @@ namespace OmniXaml.Pure
     {
         private readonly Action<object> setResult;
         private readonly IValueContext valueContext;
-        public readonly StackingLinkedList<Workbench> workbenches = new StackingLinkedList<Workbench>();
+        private readonly StackingLinkedList<Workbench> workbenches = new StackingLinkedList<Workbench>();
 
         public Workshop(IValueContext valueContext, Action<object> setResult)
         {
@@ -22,12 +22,6 @@ namespace OmniXaml.Pure
 
         public Workbench Current => workbenches.CurrentValue;
         public Workbench Previous => workbenches.PreviousValue;
-
-
-
-        public bool IsDirective => Current.Member != null && Current.Member.IsDirective && !Current.IsDirectiveProcessed;
-
-        public bool IsRegularMemberValue => !Current.Member.Equals(CoreTypes.Initialization);
 
         public StackingLinkedList<Workbench> Workbenches => workbenches;
 
@@ -51,21 +45,8 @@ namespace OmniXaml.Pure
 
         public void EndMember()
         {
-            if (Current.IsDirectiveProcessed)
-            {
-                return;
-            }
-
-            StoreAssignment();
+            AssignCurrentInstanceToPreviousMember();
             Collapse();
-
-            Current.IsDirectiveProcessed = true;
-        }
-
-        public void StartDirective(Directive directive)
-        {
-            workbenches.Push(new Workbench(valueContext));
-            Current.Member = directive;
         }
 
         public void SetValue(object value)
@@ -81,17 +62,17 @@ namespace OmniXaml.Pure
 
         private void CreateInstanceIfNotYetCreated()
         {
-            if (Current.Instance == null)
-            {
-                CreateInstance();
-            }
+            CreateInstance();
         }
 
         private void CreateInstance()
         {
-            var directAssignments = Current.MemberAssignments.Where(pair => pair.Key.IsWritable);
-            var instance = Current.XamlType.CreateInstance();
-            foreach (var directAssignment in directAssignments)
+            var groupedAssignments = Current.MemberAssignments.GroupBy(pair => pair.Key.IsWritable).ToList();
+            var writable = groupedAssignments.Where(pairs => pairs.Key).SelectMany(p => p);
+            var nonWritable = groupedAssignments.Where(pairs => !pairs.Key).SelectMany(p => p);
+
+            var instance = Current.XamlType.CreateInstance(nonWritable.Select(pair => new InjectableValue(pair.Key.Name, pair.Value)).ToArray());
+            foreach (var directAssignment in writable)
             {
                 var member = directAssignment.Key;
                 var value = directAssignment.Value;
@@ -101,7 +82,7 @@ namespace OmniXaml.Pure
             Current.Instance = instance;
         }
 
-        private void StoreAssignment()
+        private void AssignCurrentInstanceToPreviousMember()
         {
             var memberToBeAssigned = Previous.Member;
             var instanceToAssign = Current.Instance;
@@ -148,6 +129,11 @@ namespace OmniXaml.Pure
                 return false;
 
             return name.EndsWith("`1", StringComparison.Ordinal) || name.EndsWith("`2", StringComparison.Ordinal);
+        }
+
+        public void Bump()
+        {
+            workbenches.Push(new Workbench(valueContext));
         }
     }
 }
